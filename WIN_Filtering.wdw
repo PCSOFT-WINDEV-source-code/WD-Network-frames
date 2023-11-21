@@ -1,0 +1,342 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : WIN_Filtering
+ major_version : 28
+ minor_version : 0
+ type : 2
+ description : ""
+ subtype : 0
+window :
+ name : WIN_Filtering
+ identifier : 0x2107efd125a0af14
+ internal_properties : CAAAAAgAAAD3J8K1scO/SqqxXzKBqIVBSPHF420UJatVXiBShJEV8wnNREqrreZAvXDi70mOMeOZK1RUA7nc6rA268splRBhKW4KdcYrJvbWPM7Cb+gEfBUsUnVURAYWKBEYn/Yx//YHXerj3Axz9S84Imy++Ff9moL5KZJJth52jNsjm8/ZH9V0C3Otx0+na39T0JS2biwWhNhlr7CgV321Uw55g57oP+sHOErcWhUpwjWvOeARFpkw7xWV7AH4iUSnT400hHX5YidM9Csp/zve0ZPRStbrsAQXq1mu198msydI/lG8kRfVD6obY1kfEvuANIVCoBeCqMvkZi+Au75HAUmA//jmJXn9UPBBXwMZFzfQiv1bmjBs4a4AlkzELibLzBAKZdApwUwlI/tOqS2O9ynDNDgv4Tw4vzpbNvo7L1Q6aYAD1pA8b8qV2GGYKaHyjjTw7ru7qyf21dr/dsu/d9rQzz9NlI1eLlH1yhOyUM8FMgPyrdnlXJgApjvwrA9j346OAWm1pyGLXaVkPshFr8dMhlfUgkBB5yDws4Sfzk+CNw+Oo0fhiYOW6mbKXQMWGii5NewNZTCmhp9s6+1y//G+t9GtA6XA9qjRjpkFvC37+CClWo55GCcNWhPZlYL0ZJV6MNFR0mU0bXGkS/SCxTEy2oZvOZgdBjUvKePipuigMPNP6m7htJEVKHnz51IWlk3ePAL5xRgGR6kHyxB7Ie4Lcm56RM+KBLBqSIYhNJyQ0RljGe31PPIWPLhBfvAbZO3k4mw2ejrRc3LnfSGPQGDgZWfIaf2KLrw8QDP6A7Mz4eWgAodsnRCPq+w=
+ properties :
+  width : 426
+  height : 208
+  widthClient : 424
+  heightClient : 176
+ controls :
+  -
+    name : CBOX_FilteringOptions
+    identifier : 0x2107efd125a7af14
+    internal_properties : CAAAAAgAAABbpPSEqH8rJwlApwo335oh19JuxL1fmc3XTREbpw5nOaoJO1xPDHzSxlEQfdl5GrOLwZh8Nu9SRkwjLJBKglm+lrKI/0rjfaPifJXd3KdZKaauWheCwsNm9aBmqKtyfgxjhOzol1OV5hkbW/DyfEDRayoqyw++HdIu1Dv5rXDMWEKalzOZzmGm7p6RNEJW5nk+KMrzFQ2SuvDy5e3XhM/GtUQJr/xn1/W7CqhwFJ13HSogk04M4uVR24UpwNtmiBwjRmluF58xril9JpyDHjGmIKBAiKagyHVnTo11ky4pZZwiUeqfuZrb/Tcxan2bwYsez7xvpbCu819nINO/lvXfMECSwUcGqssZI2heNe9xEsybUPGly8w+PJRdYBdwOIpXYi4dGohmmrglTE3ZiEkVr4+zsU1SSes6o/nnHlji9dEpU1MhfsvJB93kzsRPysV7poWJDMkjc3FGYn/l6MX+ZCqfaQrIA+e+kESbtuR68QDGQMShf7l7JLYA/EVJwT0OjSs6JlYHzT+dqRsWX8igzt8RrGUMa1lEw3Q4UikoZMYswQHeORiHhJuns0n2sosYPL3p5VcO5twO7FALj61r/d8n1JQObOStef5K98aw5xwQSvAKIVpSRmHRt+LnFASDwCwU7Is+18/Qzx006XP8c3+wotWb3NRYz282s36sM9aa8ap+fjBgUmRb3F87pGGlCLAyTEIQKbAYhb2qpS9see3uCytd400wku378s/CEi/NRhiKaX2SkGWJmsXFVhJ4f1SRngzMRgSHdmmRszq6Bpnx/MVMfTh4ZwERCAKezsAxYQOBaubMRA0MFjLlYX4AAp8bR4ExmwhpK2oKUfwgjHEFkjnO1amh/9uF5NyfgmXsrytkTnvJcBOVVqkJqf6VBIBhSAY/1ERWiofn4jgS3pI5kG414NpvdflnutwzpjoGjm6q1/VxNX8TVX0MBTlEwJFdL/YkejfqTmWeSY0vIWlG14ofQylnrg+V6SDKaVonx2rjattZXXSA+Eh3cyUg5svd7xperi5anOFpyII29ihHdAqCgihUd1DDIIXyq2OWxXcAwLJBmQpbiJCvCsxN6a8sN7KP66GIX8/I7w==
+    properties :
+     x : 6
+     y : 2
+     width : 407
+     height : 126
+    options :
+     -
+       internal_properties : CAAAAAgAAAAdJM6Xptp8ORgZpRiqa5le7IQZnyXBkuIVcNtm0x3kGpqB2yX2jnyagxckYwWJ7gf+qAGXjz3LFfVRtz2aXe7zJzATdLe6wPu3qbfk8tluV07phrsJdODoOhlfhDtLxptBm9RRX/lMpws2427SNIw85dVg69ahAmP9CBA=
+     -
+       internal_properties : CAAAAAgAAACemRHh9QRuu7Jsqdlyk10X+GDOdR5z9Ids2EKZ07oQbuLg9NQ9J2qic4gb4cj6V7LA93PfMv0KjMli+wXFoNud+kwdOVn2vgED8+uDyrqAASLCBKdr1Hx9LJC+6SB/kZJQm5LjzBvjDRUWV+PqTqUPqKy6ZFMeBN21
+     -
+       internal_properties : CAAAAAgAAAD+8UzcPiaHiy/bhUil6ICnweiD6mLZb7Fcv1tzuJWSQhRu+tLtKLvRElhqVw0EAGij6TFmaRXoJFEOveYPO5O3A92yBgqohVvaLEgZwm22L2MVO/Z2rgW9yclTIaoymTqvQOsv5OOeTzlAmi6DIEHfba041RciZQ==
+     -
+       internal_properties : CAAAAAgAAAD2+UTENi6P4zczLeBNUDgvSWBLIkoRp3mU55O78M0a2gz2cjplUMNpGtByj1Ws+BDrIXk62W1QBHmerZrT32+bb+FebpIg/dPCRFCReiV+dyvdc04u9k0FgTHLKbK6EbInuBP3LFsWx6H4wsYbuCnHdbUw7Q8qbQ==
+    type : 5
+    controls : []
+    code_elements :
+     type_code : 5
+     p_codes : []
+  -
+    name : BTN_APPLY
+    identifier : 0x2107efd125acaf14
+    internal_properties : CAAAAAgAAADqJ96r7PsbTSrOWa6MkfN4gZQaTjSzf8VL+8ZXXhSB+dq3ItKJlB6sdsYH74bMkprUZqP1oImnWhfk7matN3iODHnil6PmK3mhYBPNgL97EgpiO6GRAvbpICarTJ+Wk1Ehg4kYBaOQeld6iq8w8dtbKgoM/vN77tAAuGkyKePRR+9rbPSPSnzPTcvPGmOzQv4bMRjbrXzqoyHC/3CRzNUfDMzgwNldbZBUHZXBT6Wx3oUGFtxHTznnB71ERM/iJNc59LCBtGo7MNSE7hCn9BbitSY54gmxSF7gL5ZCBPZgW7Q6tpwzQNXYL0ylkGHOuU4Q9rmqG3oN7vR+fEXhosKfYe5nQqMPN6s2o6mqHGATrYlJjvl9XrewKuuMgVu2UDPFZBL15v4+3rx9ts4rQLKfU2Tl8cLL/3hgtcuzaC2WLGwRLj9jnf1Q3pJyddVBY5ItpgfN3w8z1ypOds4EKSqS1qyMX786rR4inaKgbr5FKJHM2gF7+jZ/dmXODKb78bnuxRA2HDC2+jBarooL4cOyGdbueQn3JRMVpvdwwEOZJRaud7+byI537/5gb8SstArNG4eDDVqwTMxiBNF0YrkyT054BPM1UdioRHvlBCK3FEuHTqbpQTA1h5xAJJjnpLPMm8hFn+14qF9NefC0vuggxdgOX2t1ytO/1jJHZVFzxPNNJt4DCh0BJk2jZQDDwuDPOEFcKFD3XsS3Sp8mQYzk2xh7CJeB21Lyx3dTTGJMu/aK8wl4fL2d3v8Zl2Ngst121EcfvdV3+XXcjX79D8PST0Kr+ReCxIIIcFPctMoJsO9oXnVbv1VwVWb/kfQI08qVFzf0PCvMqtTBMtvfbEdjAg8pHw4/Ft/J1E6E68+ZRADRPMQsJZyRsjvijU6+wAUqrINQDQPjYg==
+    properties :
+     x : 230
+     y : 138
+     width : 92
+     height : 24
+    type : 4
+    code_elements :
+     type_code : 4
+     p_codes :
+      -
+        internal_properties : CAAAAAgAAABv5oWhPOvSZOcyXq6VseLWM/gxl0Pc3gAHi3OJWspsXuTrgEZPwC/zioFYJFG2mK1gmRgz9bdRLWt2oTSimxmOb55nl8z88JzZS1b+h7dFALUrJVOX1vRdY/9r8AVnwR+PDIbgxAhY6fZ9+deDpPmV93GeRtpoSXsht76D9KLY
+        code : |1+
+         
+         // IGMP filtered or not?
+         IF CBOX_FilteringOptions[1]..Value = True THEN
+         	clMainCapture:CaptureIGMP(True)
+         ELSE
+         	clMainCapture:CaptureIGMP(False)
+         END
+         
+         // ICMP filtered or not?
+         IF CBOX_FilteringOptions[2]..Value = True THEN
+         	clMainCapture:CaptureICMP(True)
+         ELSE
+         	clMainCapture:CaptureICMP(False)
+         END
+         
+         // UDP and TCP filtered or not? If they are filtered, pass the requested ports in parameter for the capture
+         // They must be separated by a;
+         IF CBOX_FilteringOptions[3]..Value = True THEN
+         	IF CheckPorts(EDT_PortUDP) THEN
+         		clMainCapture:CaptureUDP(True,EDT_PortUDP)
+         	ELSE
+         		Error(<§$0001§>+CR+CR+<§$0003§>+CR+CR+<§$0006§>)
+         		RETURN
+         	END
+         ELSE
+         	clMainCapture:CaptureUDP(False)
+         END
+         
+         IF CBOX_FilteringOptions[4]..Value = True THEN
+         	IF CheckPorts(EDT_PortTCP) THEN
+         		clMainCapture:CaptureTCP(True,EDT_PortTCP)
+         	ELSE
+         		Error(<§$0002§>+CR+CR+<§$0004§>+CR+CR+<§$0005§>)
+         		RETURN
+         	END
+         ELSE
+         	clMainCapture:CaptureTCP(False)
+         END
+         
+         // Save the parameters
+         SaveParameter(“IGMP”, CBOX_FilteringOptions[1]..Value)
+         SaveParameter(“ICMP”, CBOX_FilteringOptions[2]..Value)
+         SaveParameter(“UDP”, CBOX_FilteringOptions[3]..Value)
+         SaveParameter(“TCP”, CBOX_FilteringOptions[4]..Value)
+         SaveParameter(“PortUDP”, EDT_PortUDP)
+         SaveParameter(“PortTCP”, EDT_PortTCP)
+         
+         // Close the window
+         Close(WIN_Filtering)
+        type : 18
+      -
+        type : 161
+        enabled : false
+  -
+    name : BTN_CANCEL
+    identifier : 0x2107efd125adaf14
+    internal_properties : CAAAAAgAAADHpjVD9qPLlm8VjrrYZg7S4GdWaD+PxlImLzNm9TWEqjV7LYlNG25HBgHeq7ldFqsXXdh7SPIb5rAlVyCYOxkDp1qjDAul6gwDVuK/dNEBM2sLzU6OfJ5kVai5Mgxu/AK2ZLzP6nBttWjhtnoUTT4LR9pAJUbC3OGc1oxHZLzlBmN1zB4W+3h0DR+TxUPKkZSGEoGcMCtgiTtbPAod5tFEgpQkB1nCQj6MKMSPAt+wD/Nu6cnRtlDFZoM5XQAs8rzRXjtG6+LhDBuCsJ7sN5fGon21OWRJ9nqzSdQOVaN2Rlrwq5WAajs2qVjIOh/SGHEHXgVFSsZkX4ECfJ9hpVl3bTxWg2m8pHQTUf663mX5en51aIEYzxlG6al5yPlM/6GWLyjzHCefi4qLearBynF5ZajL042kyVvWYnYEjZo2t4Sq8tZxPOlINhU2l7maWGyq2lPKdWeOfsl8aCM4nPKQdNjM2JGJ7dk2iopHZkCgEv7b1gUObJt+L6A5N59d+g1RNVkQ+mLBK10TbduV3VJbOFxbkMhIjceKo8sfeQ1vLoTemw9X7AD7JYOaeesrETS+VftXJBBmPcspXFuwPJ2kvvWrgWJAi/Id3BmfBlvdno8q+/namPKBmr6MeGvDnN9dTKIhtjWJYReskOfvZwSSqZCD9dl/hKd0EUImzsPNWYsQifnJK8NUnyIlJZHtN8IntOkCa2CP73+Hs81T0HFTThA66HnwHGcjuUIC2KlG68ysbc76qABeIjgyD/7vY9j0nGM+MO72OhAFVrwEBNRDPHLU9Bj5e9D+q+ACO3cN9WzkoiDu0DwOIGXXKbxkECqxaCIswgzuDtk0uoKizFtmIgdPVcgFkDq69I9AzaALSPPra8LrlE7PJzbUcGGBAqFRQMysG7H8H4GI+XtZH7mKJXbSBB40yE0=
+    properties :
+     x : 332
+     y : 138
+     width : 80
+     height : 24
+    type : 4
+    code_elements :
+     type_code : 4
+     p_codes :
+      -
+        code : |1+
+         // The filters have not been modified
+         Close(WIN_Filtering)
+        type : 18
+      -
+        type : 161
+        enabled : false
+  -
+    name : EDT_PortTCP
+    identifier : 0x2107efd125aeaf14
+    internal_properties : CAAAAAgAAAAMg22MzsxZVgIWS0Xd//7L7jSf3clPhU2czVw/g9kt3RG7zRLfLQHmkLTS9uEKxsO3YBenOhAo6PkO0M/l6Nmp2GJqrdCflFdOMv3Lc0EGWfcF0V9yF2cGGA99RxdQiBmAVPjLJAzMTDyJE2GdS9YAQP1yXrK4PwQtYXWXGRbzHGbnf1J14uXYL5ZhAak3Y4b2y0BX4u0b3tua5Jlw56dmZwPpmC6nAvvkVfYKqiz9MGc69GsPJUpM1LzRTqY1Oah1BCz+kJRZUXLghmKWDaPwYqaP4VVS9zySIKAsyzgZRCWHC14y6nMdUot4BcHYBuLN3GPQeJ1HUQKRxs2ax5dqjo5K2Ed/B4+HuebBhHxTlujRSlmxu2kfBmiXuDopNFERetvF5BerQoJqDxC209HmvTg/MS4VRVHHoajRxdxbt309ppJSAEVjrPa/S4nkZuzKZBjVX22Zpxi0B87Hsy5kKqF4rHZ/+hCLMP6TRTWywI9MAeqjjBakXSWdPsr9DxwJjMCrYSFB4w1rHwbyRj/pvVP5dE1hoPMTIE9eZlhGoLoQpL3o2gVouvffhY20ROO+sfahAxreUP7c4ivHBPJZYhRHCj+xmCQ+7H6eaqJ2n8qzrY3CTctOxD3A0gO38k18+F4p/L8uF7TdsnDaRPMkmPloYWEYnuo6nDQSbUjoQ7wvjknIAudS3ZuDlm05QN4atH2ThKqIRJNMnOQNOQYVlYC18kVOgsdtajdZTCG9lW8Ef/Dkm97x7ysEKcc5uVH8JHijWe9gPMFfFfl31F9SIgjoHdQxOnESTfkkuee5+8fxuXQxZqkZdvt+93lsMRbRTJPfUtox1zGDTKuYqj4szyGbHLTe/uwvb3A7E1WrDlh7dfGOoGL7eSw0KIR8+JMXs8mfUP0uN9CjvvgEVV4y8ruB3dsvot102Mj2IHy7bR/Eu4CwRaQExhXmoTbTFvZR8WW7GXkdTxxQDD3dyDTaJ+kV2Xbm73Y4jSsHIUKXVt35NdhNlBT6UIjY84hPxwZSB+mlNxrgOvrV7C7cZGlZ2baF4KP5n1T0QWi3gFsSyVgvr+erzUHnNdESFQ4JWYVHhybJUexsm3VBoQarwPw5pVb4U48XHNJUV587/Fz/wJVeCQjYj8E+u4o9ZpOklz99wuWXyUTENX4RPDNWTxzeQfhgIJbr5S1FmkFAeMGpSIhpQ2iEQ3JPDQl3uas4qCH4/4lZZJPjXmhinaLe9q5FSE3p1iVFTlWXguaSkMIRk29Nx+HyOYoT2HCeVjNTjCS3nh0A0nCds1lcOfygu8b49pT4UJsNsLuNm9i9mDZfElMjfPBQ96Yc2ju2oO9jRlmJUbPFxJlCZ3ud8ROl6AMA
+    properties :
+     x : 99
+     y : 100
+     width : 298
+     height : 24
+    type : 2
+    code_elements :
+     type_code : 3
+     p_codes :
+      -
+        type : 276
+        enabled : false
+      -
+        type : 277
+        enabled : false
+      -
+        type : 278
+        enabled : false
+  -
+    name : EDT_PortUDP
+    identifier : 0x2107efd125afaf14
+    internal_properties : CAAAAAgAAADcjJKzU2YhUy5dl/wC07dtJ6WDoBHfMPXDanX5tny6W8mAtM3N6rTsh2PI9visjATSLtI87MsQKiI8ARs5a0keOuGi9XG0Araa2VRcJqXZoyltbGzrPVQnGO3sW9Ka8KnrtcfAN7wonoAwHYWRzmR5Qd82vyF1iq+nL5gcjDODJ2pAiVoYWsW+fFknk8QU2mSZO9+lcY8zfZwbA33T5ab3xKnSClFRYCuP6oa5CCNuscbwYy5CZ2bJnWShFSnSaItcqBruY41avtn44Qx1tXUTmRgt0tRr8hrlU3f7MEts4GGX0XTVtXS+M1qwTksbsFg6/mASntc71yUiMVbU/PR54xTUnXK0TVoUzVibLvM8oxUXenCEIYLlwseio/CEuxm7fJw9Zbk2tz1wiHDtbtuEdBwNWjR5kcxNNdXJMSH7JbFchmcxApDmuAJzSZALIrK9wEcs0jkWYM6f4EjdvTfOKzJrVTYHs9Qb+SbzrxX8hzGixUDMwx2KREUUPHNDcSjchD0e79btIY/DaIRplte7M5dcrjcRVQV6F2JNmVLWs97d3LsEUbpsAmqM+afdCW9xXLuf6mgzMAkji6e+xmHn3QTqM/GD2wnL+KsuR0QpmU101R0UPQD91aSj0D+oWUWT3A5UYOWXciSdErNDBXHhiOLii0W86hSxUnm43AaMdhoa7QV41U8GzDB6pOhhCqeix3ovbIsksmrdj1A2HWRmjfvOmG+/xi+OtfihB1VLRL21mGKyFgBbzoBLFejts4zalemtn94mzgJuOMs88sM3AFO5vwpAnn13rLaI0s/bzgtCFCQN+dEJGcARIzL8Nz/PX6K3HnFnuZZuy11dHtBnkXB6boKlDMJE+hsrOEPLfYKIfHMs8+q1PCnDNgWwSoC9Xlz9coCQ37ds6W6vn1aVnNq65ed0shlzhdEAJXyFJhc5GKwgghqiSR6PoaE/GOmHOjAXcZhrxZ+R78m0Cvg/pVScnRYHOfpdLDSLWOr9Xb9QjvhRGbTIOynbT6l5oyO6bFC1YwWawh8IL1S9pDeK9zdiLLPYSzrX4onj+auclLz2+v0V+rGNtNLjz8t9H7xbFpfrf8V2a2jOYIwsdBI8zeENI+OyBoZv9PgbZ94/dyd7Gqpuhn0sBoNC4hpEvZDPkcgHVUsgPxm2m2W7EVTFs4/zGGK+D6csJ0Au4WlLgyIOgBryBvIVlMpMdeT08sq6zuSrarjBiqNj/q5feGJIohI0klWgPgtGd6FWWTZbdIPeeCVi7PSlDbch/L14vZqCWijpx4rWTzXi792XShXXGPk4Odn+FsrVdRwmqXi/c4LVT4BrPZ48Luo+dbBZdsnd5DbMLUY+wWX1PQ==
+    properties :
+     x : 99
+     y : 74
+     width : 298
+     height : 24
+    type : 2
+    code_elements :
+     type_code : 3
+     p_codes :
+      -
+        type : 276
+        enabled : false
+      -
+        type : 277
+        enabled : false
+      -
+        type : 278
+        enabled : false
+  -
+    name : STC_EmptyControl
+    identifier : 0x2107efd125b0af14
+    internal_properties : CAAAAAgAAADzSvdbuHK/YLrhF38BnzpNQ6d3EXaHLaXR2kIKfNLvIQ1JgPcwR2NbR8k+aXdKA41jtJFkRa2mR/z2j/omfNM13x2tofdj2fa+hiJjONuHm5dlucODvDjH2yDSp59pNchBKyYMeDMR6x76UVNO0a8uiw6tUG1R3oIQZ6vVRZSkOfaTnnYvrT0tysUO3B42qp/oWEBIhfPle7G2DTuvOxEOFMR/wqKwx8gPEs2Ij6EgEOgg7jWVFlQM2gwdsleWqLiabEhgMBF2yJvRW/9dlGLG0kYzo4y8/DMk1E47jz7+TV0OP+53AIHXxVUx/K0CLnuRoGOkvEKmQfNgL9n/cDoKrvC1P75ACxP7vwE+Cs5k+jKQ9XNrxxj8MG+uRYOSryuwGHx8OArUg/4YjGJIkoYyEeTozI7Ko1dNVgRIe2/hKEHB5RTd9fuf71jYV6k9kHcEafvzhhDKQootXBo2CpC33mqu5qsg7TzAIv4HQt7g4DZDSCXCYqNz/IwqIqi/tJ38J86Bub38COnsiEd39fx/
+    properties :
+     x : 198
+     y : 40
+     width : 199
+     height : 20
+    type : 3
+    code_elements :
+     type_code : 2
+     p_codes :
+      -
+        code : |1-
+         
+        type : 18
+  -
+    name : STC_Separation
+    identifier : 0x2107efd125b1af14
+    internal_properties : CAAAAAgAAADAHPc33gB9tYfQNLtSPKOLcC0i4fdfPYLJ8sYZdpXugKoe/30VoGYylWz+C5Y6DYCBS4E1JQYB3k7BxYT/0DjGAkJvlJbWZFTXzYg9fV7KS1+eJOv8oUWqilB7UBGP9oa/7oS2TfS91i4g63GWnBX6yx5dF4fsrTgfqzjS23quhAnyy2w8dapyJGZmTz56PFcpKK5h1Pp5wb0OoY2iWiZkbpz92uuuU0HRR7OkyNmwfDeg4aDuZdd/NHAzdXQjt/ju/NVHWHmlGLRrLPWrHEhIQpSp2fvvFNS/wlg1Fyp7c9o+lTzqb10QCrM1zFUOweMQQJVedxmCWF62QdvXDMmWtfydI2tlW/oY7+VWfIizrgXedYeUDD5LD/U+iX8i8usPbszYAwGI2I/OFIaK9MX04hBWtH9j7bLEb13LxNBomiLiLopoOJvbXWGtduJPc3VO0gvJaZpULghuqdwCmiznVUQgS9a2hoDmJYGQpRMRylP/U5qjWTck5d9nH7tt0x1Qtr8Kzbn7tpdDFc0h75dtsTdLxR31iWGH1FzpVZP1f/Ux
+    properties :
+     x : 99
+     y : 56
+     width : 308
+     height : 20
+    type : 3
+    code_elements :
+     type_code : 2
+     p_codes :
+      -
+        code : |1-
+         
+        type : 18
+ menu :
+  name : _Menu
+  identifier : 0x28b27ad71cc05e47
+  internal_properties : CAAAAAgAAACCv199ARoPUfG3WAPSG9eefhOOjWMQrs8CrX6cGGGJPoSHWBq4PXhStOWc1YnAZMZ5+EFR1WTDn8CTOTiyLnXPpAR5X8rsRkPZrm1yZeYDDt4kRzDPLbUf4Sh/mD3kd1D8V2drCFLmjeQhgpw7GKGwHRga+ZdjSqXGIC3LD1RracZ230hOmUJTj+ABDW4IHrw4PflmVGgp8E9KnAf/gselRrzEY90l3Cr9N00QijFYYrbrl4qF4kdim1YX6jYT4ezQhbJsU84ENZsxzq+o0JVHYQ8rxck600VhGV04/ao=
+  options : []
+ languages :
+  - en-GB
+ popup_menus : []
+ message_bar :
+  internal_properties : CAAAAAgAAADc1GQ94o9/SDRDmfM9bKLdXR9VK0rX3qzQNxgLTREwyqjz09Swq+McwjWWBzyo1QjRBk3dY7UbLNe40qK/NzgNxrumNSydD8vUTxqrHrn4vnA4c0+k0w7n04Cixj5n
+ actionbar : {}
+ code_elements :
+  internal_properties : CAAAAAgAAAApvS7buaBzbxK2demwj4uRp7cESyH5pbIyimIdhbavEYlIwBLj4wZ68xCRuR/DOlgyRS4x9VqTj53o6s4n1dhJe7vg94S9wkSA/NiOVhh9W+VbhOVsosPckraGhmBnO8vQR/MBFc03pDf0jfjsJJSvkasTogXZff62VqkTingrmqsuc0Q2vslnpzpNPrHndkvf2fiq7xXhD5AC6NLanDpXnW2EnWJBUK1p4Xv/rnXlcqfruYC2BhPKpPlgqgYY6wg6EsxBh3rHgAiNmvDlEWMsdodhEW9xxatB
+  type_code : 1
+  p_codes :
+   -
+     code : |1+
+      // Initialize the controls
+      CBOX_FilteringOptions[1]..Value = LoadParameter(“IGMP”, True)
+      CBOX_FilteringOptions[2]..Value = LoadParameter(“ICMP”, True)
+      CBOX_FilteringOptions[3]..Value = LoadParameter(“UDP”, True)
+      CBOX_FilteringOptions[4]..Value = LoadParameter(“TCP”, True)
+      EDT_PortTCP = LoadParameter(“PortTCP”, “”)
+      EDT_PortUDP = LoadParameter(“PortUDP”, “”)
+     type : 34
+   -
+     type : 180
+     enabled : false
+   -
+     type : 230
+     enabled : false
+   -
+     code : |1-
+      
+     type : 40
+   -
+     type : 11
+   -
+     type : 12
+   -
+     type : 17
+   -
+     type : 13
+   -
+     code : |1-
+      
+     type : 66051
+   -
+     code : |1-
+      
+     type : 66052
+   -
+     code : |1-
+      
+     type : 66053
+  procedures :
+   -
+     name : CheckPorts
+     procedure_id : 1227213104552980244
+     type_code : 14
+     code : |1-
+      // Summary: <specify the action of the procedure>
+      // Syntax:
+      //[ <Result> = ] CheckPorts (<sPortList> is string)
+      //
+      // Parameters:
+      //	sPortList (string): <specify the role of sPortList>
+      // Return value:
+      // 	boolean: // 	None
+      //
+      // Example:
+      // Indicate an example.
+      //
+      Procedure CheckPorts(sPortList is string)
+      
+      // Variable
+      sPort is string
+      
+      // Empty string, no port is filtered
+      IF sPortList = “” RESULT True
+      
+      FOR EACH string sPort of sPortList SEPAREE by “;”
+      	// If Val = 0, it means that it is not a number that was inserted
+      	IF Val(sPort) = 0 THEN
+      		RESULT False
+      	END
+      END
+      
+      RESULT True
+     type : 458752
+  procedure_templates : []
+  property_templates : []
+ code_parameters :
+  internal_properties : CAAAAAgAAACVGQgYbalU7DKC3oH4ItDrjtcTHXXV/EuH8q0IbhyQlw==
+  original_name : _Vista_01
+resources :
+ string_res :
+  identifier : 0x18b27acf01573ea9
+  internal_properties : CAAAAAgAAACm76HWfKGWp33VjXInA4cRlqArlgTTA862QGt72W2ld5Y=
+  strings :
+   -
+     text :
+      en-GB : The format of the specified IP is incorrect
+     index : 0
+   -
+     text :
+      en-GB : The list of UDP ports is not properly formated.
+     index : 1
+   -
+     text :
+      en-GB : The list of TCP ports is not properly formated.
+     index : 2
+   -
+     text :
+      en-GB : Each port must be separated by a semicolon and its value must not exceed 65535.
+     index : 3
+   -
+     text :
+      en-GB : Each port must be separated by a semicolon and its value must not exceed 65535.
+     index : 4
+   -
+     text :
+      en-GB : "Example: 80;20;21"
+     index : 5
+   -
+     text :
+      en-GB : "Example: 80;20;21"
+     index : 6
+custom_note :
+ internal_properties : CAAAAAgAAAC68/W0/adbG0nFCRhrE42B5HRnbDzVHaz86sSQyxlBk7I=
+rad :
+ internal_properties : CAAAAAgAAABoAN7PLpwJW3EiA7WVZdCA5EwrCA1rvutcDHooMWKe

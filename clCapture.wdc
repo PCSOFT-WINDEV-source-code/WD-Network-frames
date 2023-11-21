@@ -1,0 +1,577 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : cCapture
+ major_version : 28
+ minor_version : 0
+ type : 4
+ description : ""
+ subtype : 0
+class :
+ identifier : 0x18ade7ee005ac5ec
+ internal_properties : CAAAAAgAAAB2/vstTMCJbS/hlxjFxirSqKvCUuv8YxgpWyl7S3iA
+ code_elements :
+  internal_properties : CAAAAAgAAADLACYlPv7xK6vXmEvFLkdMaJg1zPZ8t0hB9JiFp9lQDo701eRm7j2BKx7Tllkw1wgVhhREWoEKxarPle/p+7m8Ninx4e2k4iM=
+  type_code : 10
+  p_codes :
+   -
+     internal_properties : CAAAAAgAAACLS/k4hpQK8r0l8Q8+HQQu9WJYuEbdhxjjOJHC3V+4vEVpGHZRwszRSkwKSo3LOdfbdMTdgq0Wy71sABAfaGxoejwa3g3MQQKPQP5DK71o7gzB1ETPtQK5s9gwRFl3Hr52+K268RO2u2gaWrGHtydt2uB2xgDi5Q/0a9G95pedEwZ+hPU2WN1WubPty/VopGc=
+     code : |1+
+      CONSTANT		
+      // Winsock constants from winsock2.h (Windows Platform SDK)
+      AF_INET            = 2
+      SOCK_RAW           = 3
+      IPPROTO_IP         = 0
+      IOC_VENDOR         = 0x18000000
+      IOC_IN             = 0x80000000
+      INADDR_NONE        = -1
+      WSADESCRIPTION_LEN = 256
+      WSASYS_STATUS_LEN  = 128
+      MAXIMUM_SIZE     = 65536
+      DLL_NAME            = “ws2_32.dll”
+      END
+      
+      // Structure used to specify the address to associate with the socket (bind function)
+      sockaddr_in is Structure
+      	sin_family is 2-byte unsigned int
+      	sin_port   is 2-byte unsigned int
+      	sin_addr   is 4-byte unsigned int
+      	sin_zero   is array fixed of 8 1-byte int
+      END
+      
+      // Structure containing the properties of the WinSock version
+      WSAData is Structure
+      	wVersion       is 2-byte unsigned int
+      	wHighVersion   is 2-byte unsigned int
+      	szDescription  is array fixed of (::WSADESCRIPTION_LEN+1) 1-byte int
+      	szSystemStatus is array fixed of (::WSASYS_STATUS_LEN+1) 1-byte int
+      	iMaxSockets    is 2-byte unsigned int
+      	iMaxUdpDg      is 2-byte unsigned int
+      	lpVendorInfo   is system int
+      END
+      
+      //
+      // Class used to capture incoming and outgoing packets on an Ethernet interface
+      //
+      cCapture is Class
+      // Members
+      PRIVATE
+      	_nSocket     is int
+      	_SIO_RCVALL  is 4-byte int
+      	_sCallBack   is string
+      	_hHinst      is int
+      	_aaPacket    is array of 0 cPacket dynamic
+      	_ICMP        is boolean
+      	_IGMP        is boolean
+      	_TCP         is boolean
+      	_UDP         is boolean
+      	_UDPPortOK   is string
+      	_TCPPortOK   is string
+      	_IPFilter    is string
+      	_StartDuration is time
+      	_MaxNbPackets is int
+      	_bNoLimit is boolean
+      END
+      
+     type : 131072
+  procedures :
+   -
+     name : Constructor
+     procedure_id : 1778332437275461100
+     type_code : 27
+     code : |1-
+      Procedure Constructor(sCallBack is string)
+      
+      // Initialization
+      :_sCallBack  = sCallBack
+      :_SIO_RCVALL = BinaryOR(BinaryOR(::IOC_IN,::IOC_VENDOR),1)
+      :_hHinst     = LoadDLL(::DLL_NAME)
+      
+      // Initialize the filter members
+      :_IPFilter  = NetIPAddress(NetMachineName())
+      :_ICMP      = True
+      :_TCP       = True
+      :_UDP       = True
+      :_UDPPortOK = “”
+      :_TCPPortOK = “”
+      
+      RESULT True
+     type : 589824
+   -
+     name : Destructor
+     internal_properties : CAAAAAgAAAD/1TsypvX83PwEhO+Xf7fRwiC3Nyd0ShJlVtInmnHFu7RN/SHdV57jWQ/ggbRo8+IkYrKE91rRd3h08k+65YnMF8+PB2LJ3GEcnNyH6SV/B7k92cYyA3MRjIS4iDkP/w5DLTRM2HRR7JAcMPE0f1gxPbqeN6IuAB3oRmZK96U15R+ynuKwkNiXOe9gKrcBNhcA/wiba/qBV1QK81EeBIhAtSs325JBzdBFMoRTX+VQKtJm
+     procedure_id : 1778332437275526636
+     type_code : 28
+     code : |1+
+      Procedure Destructor()
+      
+      // Close Socket
+      API(::DLL_NAME,“closesocket”,::_nSocket);
+      
+      // De-initialize Winsock
+      API(::DLL_NAME,“WSACleanup”);
+      
+      // Stop the thread
+      ThreadStop(“Capture”)
+      
+      // Unload the DLL
+      FreeDLL(:_hHinst)
+     type : 655360
+   -
+     name : StartCapture
+     internal_properties : CAAAAAgAAADfx54lwAvlzcTY9+iIk2b1odx3Xw/1cC23bb2pqTCxC27SAJPG5s/w0glS1XU7dfp37CQ+1I0gp8kmBzxl7Y0BXPydSzSUZJZxDmGNJOfN12nJTIJQ0sMQr59kbMML6vTFLFsV91WAjXERzRz/tC3M5hFp/O2T+7rPme3LlhZCoJTpYR95j4kWuERfY2Zy53yXfMkMtu6NW8qy7xXWbPihILIIjLYNybtg++/pq7d7G4oOS5NfoN7B4QnLkh8Zq0bETA==
+     procedure_id : 1778332437275592172
+     type_code : 12
+     code : |1-
+      // Summary: Starts the capture on the IP address given in parameter
+      // Syntax:
+      //[ <Result> = ] StartCapture (<sIP> is string)
+      //
+      // Parameters:
+      //	sIP (string): IP address onto which the network will be listened
+      // Return value:
+      // 	Undefined type:  // Returns the identifier of Socket
+      //// Example:
+      // Indicate an example.
+      //
+      PROCEDURE StartCapture(sIP is string)
+      
+      // Variable
+      nError    		  is int
+      dest       		  is sockaddr_in
+      nOption    		  is unsigned int
+      dwBytesRet 		  is int
+      nAddress   		  is 4-byte unsigned int
+      wVersionRequested is 2-byte unsigned int
+      data              is WSAData;
+      
+      // Initialization
+      nOption = 1 // Value of the WSAIoctl parameter (in order to receive everything)
+      
+      // Free the packets that were previously captured
+      FOR I=1 _TO_ Dimension(:_aaPacket)
+      	delete :_aaPacket[I]
+      END
+      
+      // Clears the table
+      ArrayDeleteAll(:_aaPacket)
+      
+      // Initialize WinSock
+      wVersionRequested = 514
+      nError = API(::DLL_NAME,“WSAStartup”,wVersionRequested, &data)
+      IF (nError <> 0) THEN
+      	Error(<§$0000§>)
+      	RESULT False
+      END
+      
+      // Create Socket
+      :_nSocket = API(::DLL_NAME, “socket”, ::AF_INET, ::SOCK_RAW, ::IPPROTO_IP);
+      
+      IF :_nSocket = 0 THEN
+      	nError = API(::DLL_NAME,“WSAGetLastError”)
+      	Error(<§$0000§>)
+      	RESULT False
+      END
+      
+      // Convert the IP address passed as parameter to a 4-byte integer
+      nAddress = API(::DLL_NAME, “inet_addr”,sIP);
+      
+      IF nAddress = ::INADDR_NONE THEN
+      	nError = API(::DLL_NAME,“WSAGetLastError”)
+      	Error(<§$0000§>)
+      	RESULT 0
+      END
+      
+      // Bind the socket to the selected IP
+      VariableReset(dest)
+      dest:sin_addr   = nAddress
+      dest:sin_family = ::AF_INET;
+      dest:sin_port   = 0;
+      
+      nError = API(::DLL_NAME,“bind”,:_nSocket,&dest,Dimension(dest)) 
+      
+      IF (nError = -1) THEN
+      	nError = API(::DLL_NAME,“WSAGetLastError”)
+      	Error(<§$0000§>)
+      	RESULT 0
+      END
+      
+      // Change the socket mode
+      nError = API(::DLL_NAME,“WSAIoctl”, :_nSocket, ::_SIO_RCVALL, &nOption, Dimension(nOption), 0, 0, &dwBytesRet,0, 0)
+      
+      IF (nError = -1) THEN
+      	nError = API(::DLL_NAME,“WSAGetLastError”)
+      	Error(<§$0000§>)
+      	RESULT 0
+      END
+      
+      // Start the capture in a separated thread
+      ThreadExecute(“Capture”,threadNormal,:ThreadCapture)
+      
+      RESULT :_nSocket
+     type : 458752
+   -
+     name : ThreadCapture
+     internal_properties : CAAAAAgAAAAo+j9OzBlVG1sFz9CtEkM950bWg093UE/RiE5rTr9cBf9lIV099zD82t2Ptk5aeAe+fnSzT8UDXMUHMJRpoSMW4NHFsgO/66jnGQ55F/Vi/lpPieRidkBQHcX4zpfzWtcdMwWrKnlAVqC76ZWyR8fp/ffdGKGegYLnlq3vCh1X5aoxZjnw3BpybP7U2bHl+K3/hNN3lAWJPqpCKyzA4V3qTegoVQPVty/yblHu/T3pLwYIXFjtPjMJJAACCKnlgew26vhHg+wDaHSA2DF/w3dvj/NMwzHwGC/kr2+fNpxd/BHZ+VF7qMjq1Sxq4Rp0dqZMQ1N8D83aOMEQ8TbSYCI3Kg==
+     procedure_id : 1778332437275657708
+     type_code : 12
+     code : |1+
+      // Summary: Thread used to capture the packets and to call the necessary callback
+      // Syntax:
+      //ThreadCapture ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure PRIVATE ThreadCapture()
+      
+      // Variables
+      nBuffer  is array fixed of ::MAXIMUM_SIZE 1-byte unsigned int
+      nNbByte  is int
+      clPacket is cPacket dynamic
+      rDuration   is real
+      
+      // Initialization
+      clPacket = Null
+      
+      // Loop endlessly to listen to the packets until the thread is stopped
+      LOOP
+      	// Empty the buffer
+      	FOR I=1 _TO_ ::MAXIMUM_SIZE
+      		nBuffer[I] = 0	
+      	END
+      	
+      	// Re-initialize the pointer
+      	clPacket = Null
+      	
+      	// Capture packets only the limit hasn't been reached
+      	IF (:_aaPacket..Occurrence < :_MaxNbPackets) OR (:_bNoLimit) THEN	
+      		// Receive the packets
+      		nNbByte = API(::DLL_NAME,“recvfrom”,:_nSocket,&nBuffer,::MAXIMUM_SIZE,0,0,0)
+      		
+      		// If data was received, instantiate a new cPacket class from the buffer and call
+      		// the user callback passed in parameter to the constructor.
+      		IF nNbByte > 0 THEN
+      			// Calculate the duration, if it is the first packet, the table is empty, therefore the duration is 0
+      			IF Dimension(:_aaPacket) > 0 THEN
+      				rDuration = (TimeDifference(:_StartDuration, TimeSys())) / 100
+      			ELSE
+      				:_StartDuration = TimeSys()
+      				rDuration = 0
+      			END
+      			
+      			// If it is a supported protocol, instantiate a packet otherwise don't process it
+      			SWITCH nBuffer[10]
+      				CASE cPacket::ICMP:
+      					clPacket = new cPacketICMP(rDuration)
+      				CASE cPacket::TCP:
+      					clPacket = new cPacketTCP(rDuration)
+      				CASE cPacket::UDP:
+      					clPacket = new cPacketUDP(rDuration)
+      				CASE cPacket::IGMP:
+      					clPacket = new cPacketIGMP(rDuration)
+      			END
+      			
+      			IF clPacket <> Null THEN	
+      				// Analyze headers	
+      				clPacket:processPacket(nBuffer, nNbByte)
+      				
+      				// If the packet passes the set filters, add it
+      				IF :packetAuthorized(clPacket) THEN
+      					ArrayAdd(:_aaPacket,clPacket)
+      					Execute(:_sCallBack,clPacket)
+      				ELSE
+      					// Otherwise free it
+      					delete clPacket
+      					clPacket = Null
+      				END	
+      			END
+      		END
+      	END
+      TO DO WHILE nNbByte > 0
+     type : 458752
+   -
+     name : StopCapture
+     internal_properties : CAAAAAgAAADFVg7os+wldxGO7EgS0j3tlVzQ1TVCjk1L5ZRb8y5KqezUO9h9ZCIao3cN82U0rFv9SS1dBFDjO4xAR3Y5OIk8oxgJa+MeEEl9m4scqgjugcPINKYm+00nRLvxBEFbn9pkNzWcQHAY5wipYTM+aW4PjLapLfqye7zmNZeyNYPJ/dz2GbT8qNMaYfwB0BthosNvI9eLY+7Aiu6PakPqZMy7k230FCWqrxdJV3/IqJCqyH+bqJ8=
+     procedure_id : 1778332437275723244
+     type_code : 12
+     code : |1+
+      // Summary: Stops the current capture
+      // Syntax:
+      //StopCapture ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      PROCEDURE StopCapture()
+      
+      // Close Socket
+      API(::DLL_NAME,“closesocket”,:_nSocket);
+      
+      // De-initialize Winsock
+      API(::DLL_NAME,“WSACleanup”);
+      
+      // Stop the thread
+      IF ThreadState(“Capture”) = threadRunning THEN
+      	ThreadStop(“Capture”)
+      END
+      
+     type : 458752
+   -
+     name : packetAuthorized
+     internal_properties : CAAAAAgAAABQjUMESuLHlktbtpZCmb2zQfnOjVC/oXYrsb8Rrg3LrI/KFWhKQE8x7FtanLAqD6EdZHenochQN6lj6ZKrVKk06dZaCwrEmtAjNHs/1W9RTlkS8vmj5AQzwAQk/8OYSUvUQSxNCJ20/9L+dpwcJIhKLqbMVETZAZau3IKDcWojksyyVssWPRRhke3yFuGHM3fQi8c1IuHO/tvU5r2XOja6Tx8T
+     procedure_id : 1779661974499488887
+     type_code : 12
+     code : |1-
+      // Summary: Checks whether the packet must be used in relation to the exiting filters
+      // Syntax:
+      //[ <Result> = ] packetAuthorized (<pclPacket> is cPacket dynamic)
+      //
+      // Parameters:
+      //	pclPacket (dynamic cPacket): Packet to check
+      // Return value:
+      // 	boolean: // True if the filters are implemented, False otherwise
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure PRIVATE packetAuthorized(pclPacket is cPacket dynamic)
+      
+      // Variables
+      pclPacketUDP  is cPacketUDP dynamic
+      pclPacketTCP  is cPacketTCP dynamic
+      
+      // Filter the IPs
+      IF (pclPacket:getIPRecipient() <> :_IPFilter) AND (pclPacket:getIPSource() <> :_IPFilter) THEN
+      	RESULT False
+      END
+      
+      // Filter the protocol
+      SWITCH pclPacket..Class
+      	CASE cPacketIGMP:
+      		
+      	CASE cPacketUDP:		
+      		// UDP accepted or not?
+      		IF :_UDP = False THEN
+      			RESULT False
+      		ELSE
+      			// Check whether the ports are in the list of accepted ones
+      			pclPacketUDP = pclPacket
+      			IF Length(:_UDPPortOK) > 0 THEN
+      				IF (StringCount(:_UDPPortOK,pclPacketUDP:getUDPSourcePort()) > 0) OR (StringCount(:_UDPPortOK,pclPacketUDP:getUDPRecipientPort()) > 0) THEN
+      					RESULT True
+      				ELSE
+      					RESULT False
+      				END
+      			ELSE
+      				RESULT True
+      			END
+      		END
+      	CASE cPacketICMP:
+      		// ICM accepted?
+      		IF :_ICMP = False THEN
+      			RESULT False
+      		ELSE
+      			RESULT True
+      		END
+      	CASE cPacketTCP:
+      		// TCP accepted?
+      		IF :_TCP = False THEN
+      			RESULT False
+      		ELSE
+      			// Check whether the ports are in the list of accepted ones
+      			pclPacketTCP = pclPacket
+      			IF Length(:_TCPPortOK) > 0 THEN
+      				IF (StringCount(:_TCPPortOK,pclPacketTCP:getTCPSourcePort()) > 0) OR (StringCount(:_TCPPortOK,pclPacketTCP:getTCPRecipientPort()) > 0) THEN
+      					RESULT True
+      				ELSE
+      					RESULT False
+      				END
+      			ELSE
+      				RESULT True
+      			END
+      		END		
+      	OTHER CASE
+      		Error(<§$0001§>)	
+      END
+      
+      RESULT False
+     type : 458752
+   -
+     name : CaptureUDP
+     procedure_id : 1779675069854808642
+     type_code : 12
+     code : |1-
+      // Summary: Configures the UDP capture
+      // Syntax:
+      //CaptureUDP (<bCapture> is boolean [, <sPortList>])
+      //
+      // Parameters:
+      //	bCapture (boolean): Indicates whether the UDP must be captured or not
+      // 	sPortList: Indicates the ports to capture
+      // Return value:
+      // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure CaptureUDP(bCapture is boolean,sPortList=“”)
+      
+      // List of authorized UDP ports
+      :_UDPPortOK = sPortList
+      // UDP accepted or not
+      :_UDP = bCapture
+     type : 458752
+   -
+     name : CaptureTCP
+     procedure_id : 1779675138574367367
+     type_code : 12
+     code : |1-
+      // Summary: Configures the TCP capture
+      // Syntax:
+      //CaptureTCP(<bCapture> is boolean [, <sPortList>])
+      //
+      // Parameters:
+      //	bCapture (boolean): Indicates whether the TCP must be captured or not
+      // 	sPortList: Indicates the ports to capture
+      // Return value:
+      // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure CaptureTCP(bCapture is boolean,sPortList=“”)
+      
+      // List of authorized TCP ports
+      :_TCPPortOK = sPortList
+      // TCP accepted or not
+      :_TCP = bCapture
+     type : 458752
+   -
+     name : CaptureICMP
+     procedure_id : 1779675160049274461
+     type_code : 12
+     code : |1+
+      // Summary: Configures the ICMP capture
+      // Syntax:
+      //[ <Result> = ] CaptureICMP (<bCapture> is boolean)
+      //
+      // Parameters:
+      //	bCapture (boolean): Indicates whether the ICMP must be captured or not
+      // Return value:
+      // 	boolean:  // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure CaptureICMP(bCapture is boolean)
+      
+      // ICMP accepted or not
+      :_ICMP = bCapture
+      
+      RESULT :_ICMP
+     type : 458752
+   -
+     name : CaptureIP
+     procedure_id : 1779685940418929926
+     type_code : 12
+     code : |1-
+      // Summary: Configures the filter on IP address
+      // Syntax:
+      //[ <Result> = ] CaptureIP (<sIP> is string)
+      //
+      // Parameters:
+      //	sIP (string): IP to filter
+      // Return value:
+      // 	boolean:  // True if OK, False otherwise
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure CaptureIP(sIP is string)
+      
+      // Variable
+      nAddress is 4-byte int
+      
+      // Convert the IP address passed as parameter to a 4-byte integer
+      nAddress = API(::DLL_NAME, “inet_addr”,sIP);
+      
+      // If the filter on IP passed in parameter is wrong, return False and keep the former value
+      IF nAddress = ::INADDR_NONE THEN
+      	RESULT False
+      ELSE
+      	:_IPFilter = sIP
+      	RESULT True
+      END
+     type : 458752
+   -
+     name : CaptureLimit
+     internal_properties : CAAAAAgAAABEmb9wXq4Tgu/vChomzSFn3V1C4HyRjcRx3fGpPDtJtA1K/WQ6XmcTat8ApCL0EW1XKCMPjbaQRV//JwJZkm8kR276J9bmllJtBBEf0y1bYhsFn244DWPAeecxwJQ1Kiw3NDnyVVZz3OtF15nJDYHPtTVNPf12pIsPG0uYThvwW99lkwBT/sv2RjyrC97AuHvE10tx9iVKykcgsun7NiquQwsH
+     procedure_id : 1786033721676578300
+     type_code : 12
+     code : |1-
+      // Summary: Limit the number of captured packets
+      // Syntax:
+      //CaptureLimit (<nNumberOfPackets> is int)
+      //
+      // Parameters:
+      //	nNumberOfPackets (int): Maximum number of packets to capture
+      // Return value:
+      // 	None
+      //// Example:
+      // CaptureLimit(100)
+      //
+      Procedure CaptureLimit(nNumberPackets is int)
+      
+      IF nNumberPackets = 0 THEN
+      	:_bNoLimit = True
+      ELSE
+      	:_bNoLimit = False
+      END
+      
+      :_MaxNbPackets = nNumberPackets
+     type : 458752
+   -
+     name : CaptureIGMP
+     procedure_id : 1225268051186399156
+     type_code : 12
+     code : |1-
+      // Summary: Parameter for ICMP capture
+      // Syntax:
+      //[ <Result> = ] CaptureIGMP (<bCapture> is boolean)
+      //
+      // Parameters:
+      //	bCapture (boolean): True to capture
+      // Return value:
+      // 	boolean: // 	None
+      //
+      Procedure CaptureIGMP(bCapture is boolean)
+      
+      // IGMP accepted or not
+      :_IGMP = bCapture
+      
+      RESULT :_IGMP
+     type : 458752
+  procedure_templates : []
+  property_templates : []
+ code_parameters :
+  internal_properties : CAAAAAgAAACVGQgYbalU7DKC3oH4ItDrjtcTHXXV/EuH8q0IbhyQlw==
+  original_name : CClasse1
+resources :
+ string_res :
+  identifier : 0x189b0b83005efa8e
+  internal_properties : CAAAAAgAAACm76HWfKGWp33VjXInA4cRlqArlgTTA862QGt72W2ld5Y=
+  strings :
+   -
+     text :
+      en-GB : Check whether you are using an Administrator account
+     index : 0
+   -
+     text :
+      en-GB : Internal error - PacketAuthorized() - Unknown class
+     index : 1
+custom_note :
+ internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ

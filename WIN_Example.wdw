@@ -1,0 +1,309 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : WIN_Example
+ major_version : 28
+ minor_version : 0
+ type : 2
+ description : ""
+ subtype : 0
+window :
+ name : WIN_Example
+ identifier : 0x2107efd0252cac46
+ internal_properties : CAAAAAgAAADGdfrw84A6K1jFAKIFNo9ueMwdeflOmGsLsaPW8c1T0/UDPJsZBYqNTSes3RIwCj1O6Dvg2nna7hjcUszGmJEoGujemGCf7Bz4+S7Bxa0kKlwqNqZr7nhzp9q8XWBeYcJp5tr5bktHTUoN5wyiutn2ZfQXsshXa0v4yPKfuljNn+VAr8rqWVMCkAaQh9JvDEm5J51pV9kfSDJRPloql4IzD4Lqc9s2H3V/8jKNmNTdJ2dx/bgOmDcUJQM2Wir9HtpVjfeY9gRmhCw5qhiRtmcnmkK1NTgKNnwnJMgKOPys43Y3Dn8PPNhlURO6L4jW0yXZLZ+OQoo+d4zEZkJ86TV/NFyqp5yXkcMDY5mx1CIcuXWQUbSQNCBoMdUkfh6EkMPii3zHMn5wtQH7MqgrJp9N77juqRlqemZS9301KsT5jL304nxmFYXY9D3nxVX2QG++xS7KCs/pXk5Fbic/HTN5EWXl5Hbu0HHh0NDoO3/A3V6La7bfmRu0XzH+MGFE44fg+94JdFxYgMG7TgyHdIdE+/Iy0/XNyTA2FubHNr0a6VCnEM/JqcDYYFNNxyehg6TS8eWUva44jaj+nqqd/N94p/rkPwL2vnMWcFZ2mfimpZBtgdk0xApeaAalb9fClLD7Tz4FOcdZanrZdfXg56muzRrTl2XNrWgku1osR5uV+dE9KXdsW52SM31U6NtL4W2z3Br5wj7GmZBvbopbB1N216O4qH3O5Pmhm0RJuYQu07jeEmOL5cjLsRwlFzNX29Jq0PSFe/QPUpNdDCZF98lKHlyY0mqn6kJLgqbu2cW3LfNjqalVM8lM
+ properties :
+  width : 403
+  height : 425
+  widthClient : 401
+  heightClient : 393
+ controls :
+  -
+    name : STC_Description
+    identifier : 0x2107efd02533ac46
+    internal_properties : CAAAAAgAAADp2M9cotXBurPiQy+BdxyczNPoDaDTtC0AADZ1C0mPQ970PmHi0gUIYQq0AhDEQ51VmURA2iy1hkzZVLxHmofNHHTW1p2BfkCHUDTKT9iBLfmcsMaORIc1BMkT6ItOX9zxBSjZx+tRgwV7HCDVuwwIgLAsLZF8bD7KwihtmwpTPhsb20ZI386iTfk46u0PT1ycIBrEnJf6/4sCGwfgqNv7ZBvdx/Uof+OTZbvoZIyAR3BMcqhOfRnW6LKRrSrIV7s/4J6z1znd6GPi+fmbBPI0pEqoR7lqa2eKgi24YqS23JoOioEp4egFg6gtM4GA0EkXuBmxxUrd7xtYAhesqwTgQPnNq+2p2esOs5zF7qRiBlqotkDwDg89J6PR0z/EuDbkyTf3BnF755EfUgfNpSqIlF1gUOXx8qd30NnyGTW8SK7mYHW39SFI4MVCbDCC872gUafqsgmx8UIFtySnOVTvG8157GGtNcPVvwyo3h7pNPYa9Nbzy5+34bNNxc2mngsLfEwZ2T8KXyH0BAewjt+ZLEJKEEr+VTVLjYKAJjGAGG07g1PV5UAQJUhqU+wpRzyU+w45SoSHf4U+0ZegyBVv6EB+bugW0W2k9c2C+0yptXmzGlPz43Wpaf/RxPi4Z20ALQU66PNZ17smG+iuMuRexoV+O9M6c9WpN9WO
+    properties :
+     x : 6
+     y : 2
+     width : 398
+     height : 78
+    type : 3
+    code_elements :
+     type_code : 2
+     p_codes :
+      -
+        code : |1-
+         
+        type : 18
+  -
+    name : STC_Illustration
+    identifier : 0x2107efd02534ac46
+    internal_properties : CAAAAAgAAADASD35b3q5UmH3xFu5LPxFVCgvhgiEY4Tn3dr3ZOlzJHfum6HadZ8IPLnXOFXB6hyML9vMmnB56ttXJIvZaOpL+CrcAP7zQFKI28tF6F//tggCpuzuyN/0NI9NLpQZ4/XXgQrqwv//wZHUUc7KAui4N6Z3nPxOzWswyRBAfN4azEjSDw6MOGFzW7AMINjvjPut2zslGWFH8xbRODbzh+tUZ2dSk5OpTPDlrNYsda5jh6GAG+yk0CBLUsYF0DTMn2uh08H/V2IP9rsag9bT3Um/064+0M1S4ullGNv47XfEZNT7Zd8QDjAhjkNBY2eTWzyRSFcrSIGEiy9X6eZdY1YQ+rB1hK+CY7oE4EH8XFxug6NvDKXwpS/jW0nPfq4Sa4GnTlbYD8Ety/5O2XaqVe36xQvv8RHkMGOqiRAHW4PVVgr1z4skDj2fzlJuIoGjcsfiydlhSFGfrfbrYZ5Ltnq5Pahd2RyETesv21byPeYX9SRuyg+Fm/J6YA==
+    properties :
+     x : 6
+     y : 58
+     width : 382
+     height : 189
+    type : 3
+    code_elements :
+     type_code : 2
+     p_codes :
+      -
+        code : |1-
+         
+        type : 18
+  -
+    name : STC_Example
+    identifier : 0x2107efd02535ac46
+    internal_properties : CAAAAAgAAADTl595Tcw9vS+mOwp5b3jGzO8KTzX/VdTzu61pw0SdYBIjKPJEHLFcbZ1z5dGiaZp9sZZ1XWuR8VSPo7dz9r2NpH+BOETdV1jfO5j79AgYXpmLq6viG1zlI9qm43Kx6Y4BNMauyafEbkZH+RgPHb/HW4zw2SgQ/x3BYDnI72BELdnk+fKVFTLLmvVzrY4AcXkCHH9wijhxKsu4AbePwuUdZOe8aob8kwTyhdDAWm5/Gwxi37+IEHugJNJkKHMAu6Hd295jnxTWLhRjEZPWNCq07YV9bJPEvHN8L/NXtfoEvd50FqP4dav4EUrR5vKAQ67oXOXa27+6+htMbI2jIe2koneARVHx/WsY02uRQDFpO5zTfEnFEHDm+LQD7W3YExY9Hiw7i7NIqOrXwVDWtYhT+4B1DePy4jcFFpxZPfaPKALoQw1kpQKqQeOHyXI4ubaYYc2A8y+A5JeHiwlBDoic+huO5Z1OWLtDwle8HToqHmidia+swYZEhvpwM06mC1AoVaa+Nu0Tmyot/puhpECJgXViQtyBvFYcjurPwqzNoot0yygT12lZkqqpHAEZ7jpayTzRMkEGe9atns4rntnEEuC04W8IVIpHCXTXVvB869Pgu+3l9+ksfxHdRjorwRT9Unax6sKJ93iSwRe7GuPT/8G3FSV+zrQaUwdIok0DBId1STgaLVnD4LPsF9alxYGXvk4=
+    properties :
+     x : 13
+     y : 81
+     width : 368
+     height : 76
+    type : 3
+    code_elements :
+     type_code : 2
+     p_codes :
+      -
+        code : |1-
+         
+        type : 18
+  -
+    name : IMG_Network
+    identifier : 0x2107efd02536ac46
+    internal_properties : CAAAAAgAAADNBlFqvITBaLRIMOoM5hFDzFB8ge6gg07HOR2mWzYtp7UC4+v/HjiHtf0P6GAjY9rGLs8CkJSRwvc6JBdZfrbxXGprhYSf3eWPeopE85Ua8o/3sKNXmYuxJ2cQbRfF3hLLy8e15iusFKazQrHScl0dWLFVomO1+Z/KbulxvJvO62xAAkcdBx9i+W7sJIzbOLv66dwU3uSgj3tlT1ZhxlUYpPJjalZkaXlo2sEto1fp1xP5XAFsxIZgD/hEdAF4bYy4gKmg/G4Nx6p0FxN4NLP4twIwVGzBIN+fl14RDE86grVDrdepQCX8FjBkP84kXWIb3a/UTfpP/JNGTsqk8p9ZPv8SHnxXYSzhAAMSbBuUJtpq2ytK2q+B9EVqa0zjOlAzvfbnM6JnzO8grmyQEPiVmRVrmrTt/m9napegVa1O4BE3Va3NN8emLHHNXRk6Amv2NDPRdFG/Q3qHKxyffc3Tc+CWbhEtnpxo19krX7tHU4g47S/YBkLXMMgI2ySKo8EgxH0rQFZUXqX4crKOM1Fymsj5XLlb1et5vLL23sOSq55nZsL5kJwlnXm4N1zcl5gdjefV4Rt/bJJfq39QasnnrMmFbdDQCy460RTqcz4NFGyP8X+JHDO+mvd+znGb0zKRPu1eFx1Qq+C7R/xhW818c73pLYofNlEf/M1PDqNymsrKBShDN6gaprPMQV1Qig1Zfeg4VLZFao2FwOwq+Vft45UJDQE67OzN0Qz86pBF/XTmxt0wtUdrMLpLi13e83kCGFHJWHx6hv1JbxDqCJBV6+Fp96X1ajUB/zLy23cFhwCRDKDGhhqFkM/HIwZcJjqV/I9NqDQaASfKdGDkXhLpj1cCJXS5vLNOTPmLhpB9TVubLtuDJaWiOkHPEjlA2ldxIVVdkuLERQ==
+    properties :
+     x : 299
+     y : 163
+     width : 82
+     height : 79
+    type : 8
+    code_elements :
+     type_code : 8
+     p_codes : []
+  -
+    name : STC_Protocol
+    identifier : 0x2107efd02537ac46
+    internal_properties : CAAAAAgAAADOdWtknff6LkmEk31Vl+DBx1ccA9FTdNq+jVo4kAgajZ7L/7eX4h3DZyWlWJd8dVQJYK1P/c8JlEegVwSHo5/ozVv4t8OWV3GOzEDKeqBA/Bjb2qWVDwoTEV9GYmyRnt6zQ7s4LjMlwcuX5O/L5/qAC9MPKXpgHCC4GYUp6fQHi/IHur8IDbl4HvdaVSXWAT0J4ecIRPuSXs1YIiHnow6MrwADY+lTnyfJXpo63pc6VjHWXD6SMyp+U7zae4X47KyFYjIfzIRV3EcJ1axZeanEj4pBy6znUZghBwlYPLKigDcNM+Orazmzal5agbEn15k30PcM2w2UFkgi5nql6HKSuFzkx7sj7lxVU+9x5vzaJrxhIwQgHkIsRKcEUwcsCA42zmQboKc0XJLLhUkxkQV1o8ma5FY0dJ9MFJ5Kvy4JLcdK9DPBg9DmLMYEhZtm9nI/qUiKFK+f/KxEHTEHK/X2nm1D9TKK4O64HyoOipKJtbzI+kmLthyAeR1yrqJR9dS3ueoTGMQ0J1+z1Vs3Q+VNh75qztJGKxV01U+rnY53NaxQyoBQoEw8aeWV9liUZM1tTZVcM/r7nz0XmBcjAc/XfQFbeMLVMUsilmcXs3uFuf/Cq2lJZyRAgZ+XrNzJNPzDVw==
+    properties :
+     x : 16
+     y : 163
+     width : 277
+     height : 77
+    type : 3
+    code_elements :
+     type_code : 2
+     p_codes :
+      -
+        code : |1-
+         
+        type : 18
+  -
+    name : STC_Use
+    identifier : 0x2107efd02538ac46
+    internal_properties : CAAAAAgAAADlXNV8jFcq4BZk7RhU9C42slNnnXD4KXVQra++PkZavFU9EbExOpUCWY+GHbPVB3N0X/Mcq33T4t2PAd+RQOsuJLYtJiV0eMAikWKKTAv3VRaR1igd9lcK+glYdY5nTC0exlC90/vwRF3WDQqNAo8l8IjEAVh9CBNHm/SpC2JmbJJMEazy7nOloeQpKvp8KAZZ6DHKl+qljAZT9X4bUm/QDN87AsGP2DzD7cRWvHfEoYlv06j9Ogb4BHXSu95exEA+SMu6ILw3X3TjMY14Eui9yQ3VQ6gVi3qTPQdRZeDf7aFSl4G1wrYe9eQB6LZSVGWvfNILe9Zf1Ss9Vpnlx/LUhot03a0p2W3oXWi/1uMol/FuC/rUOXM1jFRMv1QlzDaBGfd2coZV465sirU/T7pW+K/v50NYOM8nJJGCBnSrE8PTalMtQHTthWpd27MjqJR6fywoUgfNzunlnJnXThSTZlo+fro=
+    properties :
+     x : 6
+     y : 253
+     width : 382
+     height : 132
+    type : 3
+    code_elements :
+     type_code : 2
+     p_codes :
+      -
+        code : |1-
+         
+        type : 18
+  -
+    name : STC_ProcedureToFollow
+    identifier : 0x2107efd02539ac46
+    internal_properties : CAAAAAgAAACd9HgY7O8lOovqRPNWYFbf90GUxE59wwQjnh2D3mD9v0hJa2Yxbr9X1gYQVAb7d96aumJN+1zNzhxolcUF0geMi3PRpweTfTmASAL7jHCsf91eoBneK+Jlpm5X6B00ev5R3FzqF7xin56pMIb+cehmjpysrdCbx++YX1DaoHkw+kQujaO+2XdBxL9TYFsdgTa3vL2pnSrEneDsOoAaxVcrW3abKBLc500Evx1HvQnothkpLDlsHAnchyYLpeNthfGgqqHwuiAbjTUuKCBGFRoEv/mMCoD76zuajdQ7fp6S4Vlv1KKr1P1APNw11+/I839z3uGKUsmdkrcUikUr2M0dcar0hzlAgxPl6fOxQWMUayGvXaF+XxeZswvgzBSn4m/UmXegoKYNH6FmXjH3RAtUzKXEM8QV+j8o17deelZ9l0t18bKNTsnz7DQKqNv4wcARWO/sNzdBzyF7jLa+oRr2NOPv+CjJrUm8ttY2Ze5POAxx6c+NBTGBZAELoNcvEt/b0J1Wog8V6FicCiPfEewT9w7ckfVg50F5BmjbFu0++2qysyXotRe7+aMvWUGxpuTaDPJHn9fHzQxdYkPIdxTReKUlJVEd8NI6QsNfavmiZCA9rsUHvTvjFLId+l7OsvJ8pn1GKVUq84dxyDFtZATpuJCVo+LHplbwRkG8R7QlSx244hDscFFJkNydoTheR+jyV35iG8upxnSAXB97W50c9lMTDsGq3NThXz92oFO+QZCyfg==
+    properties :
+     x : 13
+     y : 276
+     width : 368
+     height : 64
+    type : 3
+    code_elements :
+     type_code : 2
+     p_codes :
+      -
+        code : |1-
+         
+        type : 18
+  -
+    name : BTN_START
+    identifier : 0x2107efd0253aac46
+    internal_properties : CAAAAAgAAADxLJbvq5RGAwFy/W4J6bww/r9+wmInSlKLeompYJSPflIhs5XzGS/IxerdSiYvZw76dblhWm8w1Lh3NnMGiP6g2NrChG3StoqPNY6W5SZrKUpL5ubwrFISriqCx5R/aJZ8MuQlA72wFpaHpVgNr8RsHnbRvIv4biPkRVD3r/pTkNnRNlrOLN2oW+AAii34nH8CwDrmS/8mYGAPIdsGh4yUOBZsW1QGmhifl26DkyvprC5txDklkmP+YNwFrP5hCr0e4Go3ORPOlXX3bkt2+Nn814lEdnx6v9tq2I6oM6DhgNVEAHxEUkmcEMmYvCeagVlAAUad6EH5iLc49GfajYWngAWHhrqha9xzEc2D4S8Q38sDNwsSXxgcHMa7PXgnoEGri0+wnrbGKk5Yi+VmjmlKKgZ5jyOE5AF9Vkpg7Uc/kHYFoDZoBg1TfCSj07b9XMpgBJ7Mqthf9AhKqi2Psi95kwO8ByITzeGFeZzwb0yuBZI4Db2pyMMPjIQac0UmQkdg0b2k4MamGBYN5EnwVohiWAcJ8tIupOLMFbbS3J5AWI2Y/X60D9rJ6xoY2YyAAeO/WDqxyiDbT9OFJndVr8w8ERq2inSdnlriFsDApk15xHJnysTwQH2WCi2GCGcU4LYAKY6Rnd8qoVhTdVJnQdQHB67oNpx0ybGpoElK/gp+h1/YjJC4CcbcWkg3N1PqV8y7fv7/ftevMA7yyz5r2pnHOc0HhZK/8FZM4UWIaQcyRMgGk7l8j2bFFQc+6jSmYuZ74jJx0RK63R2Q7kql+03ETCxfxOGrwIai3nZ9MDT7x+Tvxxivuv8/Xc9P5KLgZGGfaL+TZ9ue8sG08mHFVZtAtsMB6PMNd7cT+O0PgHKgcGVZX0tjoGwezhTOiJ4pTzHJzk+E6GJlYjoVQNs+EHLLKQfXHSIX/RXaT/zDe30lT5CzthPobnEDKQ0rtA==
+    properties :
+     x : 13
+     y : 349
+     width : 235
+     height : 24
+    type : 4
+    code_elements :
+     type_code : 4
+     p_codes :
+      -
+        internal_properties : CAAAAAgAAACyvW5YWTa9yHf2C06u48ybj0DV6fiBNBZNE79LQdNOS6NIUE0BoaeHwqJTEXEe/7iTAOvzt3NPxu06COPVrv0R6rWo1WBUHTJbe6geqy67c0D/glvrW8cNVSdFhPrd+A+cQ3ElHXdY4WKLow==
+        code : |1-
+         // We do not want the ICMP packets
+         cLocalCapture:CaptureICMP(False)
+         cLocalCapture:CaptureLimit(0)
+         
+         // Start the capture
+         cLocalCapture:StartCapture(gsIPAddress)
+         BTN_START..State = Grayed
+        type : 18
+      -
+        type : 161
+        enabled : false
+  -
+    name : BTN_CLOSE
+    identifier : 0x2107efd0253bac46
+    internal_properties : CAAAAAgAAAAP4htWjB9cSyP16tC7jRhSfvi2ewn/JppLvYIkjmV13RoTNTEhl0mEGcFwDfITRkeu18UEiTgZ4MTeKFMuhMclHGKek3c4ky4sIr78y1/XagFPFCN2lVgPVPKvltlRY5cQhWW6kaLGbTHPvWS2Af77OCn2h8hVvczle82+HvNBic7/bkBvrtTfCp3PQWTc7xO8JGWSBOfizej9hjx6VRd7wQpe/GZFn6WkpZz0dvjXJCCOk3gsKamSplIw8Thara8kSwT4TyIxcBCZsemvk/nGEoaPqAyP82Lissuhi9OOZefHQHS6LLMh0IQXq5Cuzcv9I/v6iVy4iLzqXHv4Yv5K6BycZVibMk1QfZK5MvNYgpGpQ23gTgDDNnxqJ6w+4qsfX/ebhqJW6CETlAVmXRHXthAgsFA7UFlrJNOObjWtJ2YsKZBog0OBXoqt9xLoawc5u1FXHxpM3dPtzIKzg09oScmVpdCT9+1B9UIbPbfABRCEEeFw84DO/fOpdJcKFaNIcmNLzWDERPg6Vxzazstu+8RVvZDRRiMcjJPAq4YjtgxuX4C7h30aAu0o3cx/GJwFmr00hpMpO3dKnHolc47zrKikOIVmukDkhdmH4j2ehefCvOiVk1NRKRIOV8crgY7N1P/U2ZRYwMTL56QeOOugD1q/1PXgZAIi+cC/hjoN50Ico14YgI2YWyppOauvekctrjMFPPhFQTpAUIbgK0v9sTA3i4T7mY4G4I7omZWFEsrmQ/4t+L6U05kIK2VDnmMbXwNT/bh6+S/deyL+tAs+c4BTOHnpRSUNP7PS3yGqboV2+dZnplBZ5QHEpVQOM2VEcuemD67W1bRG9en12pCIu2iiwIqKCb00sXuTwdaGl9tIqM685YH0DB4qRxV5iCxlP+41T1a2phSArnr0JYXUfPTYJ8Lt3mUf
+    properties :
+     x : 301
+     y : 349
+     width : 80
+     height : 24
+    type : 4
+    code_elements :
+     type_code : 4
+     p_codes :
+      -
+        code : |1+
+         Close(WIN_Example)
+        type : 18
+      -
+        type : 161
+        enabled : false
+ menu :
+  name : _Menu
+  identifier : 0x28b2e06d0d5379e2
+  internal_properties : CAAAAAgAAACCv199ARoPUfG3WAPSG9eefhOOjWMQrs8CrX6cGGGJPoSHWBq4PXhStOWc1YnAZMZ5+EFR1WTDn8CTOTiyLnXPpAR5X8rsRkPZrm1yZeYDDt4kRzDPLbUf4Sh/mD3kd1D8V2drCFLmjeQhgpw7GKGwHRga+ZdjSqXGIC3LD1RracZ230hOmUJTj+ABDW4IHrw4PflmVGgp8E9KnAf/gselRrzEY90l3Cr9N00QijFYYrbrl4qF4kdim1YX6jYT4ezQhbJsU84ENZsxzq+o0JVHYQ8rxck600VhGV04/ao=
+  options : []
+ languages :
+  - en-GB
+ popup_menus : []
+ message_bar :
+  internal_properties : CAAAAAgAAADc1GQ94o9/SDRDmfM9bKLdXR9VK0rX3qzQNxgLTREwyqjz09Swq+McwjWWBzyo1QjRBk3dY7UbLNe40qK/NzgNxrumNSydD8vUTxqrHrn4vnA4c0+k0w7n04Cixj5n
+ actionbar : {}
+ code_elements :
+  internal_properties : CAAAAAgAAACXiHbz5sxAgg5oBw263mrRnl5QmeWZ2tcO8dL8nvaYYNJAxuxYRbm37sT8zEv+32HGTo1rg0gLMk+wPSg2esA=
+  type_code : 1
+  p_codes :
+   -
+     code : |1-
+      Procedure WIN_Example(gsIPAddress is string)
+      
+      // Variables global to the window
+      cLocalCapture is cCapture(“WIN_Example.getPassword”)
+      gsMessage     is string
+   -
+     type : 180
+     enabled : false
+   -
+     type : 230
+     enabled : false
+   -
+     code : |1-
+      
+     type : 40
+   -
+     code : |1-
+      
+      cLocalCapture:StopCapture()
+     type : 2
+   -
+     type : 11
+   -
+     type : 12
+   -
+     type : 17
+   -
+     type : 13
+   -
+     code : |1-
+      
+     type : 66051
+   -
+     code : |1-
+      
+     type : 66052
+   -
+     code : |1-
+      
+     type : 66053
+  procedures :
+   -
+     name : getPassword
+     procedure_id : 1227213100257815622
+     type_code : 14
+     code : |1-
+      // Summary: <specify the action of the procedure>
+      // Syntax:
+      //getPassword (<pclPacket> is cPacket dynamic)
+      //
+      // Parameters:
+      //	pclPacket (dynamic cPacket): <specify the role of pclPacket>
+      // Return value:
+      // 	None
+      //
+      // Example:
+      // Indicate an example.
+      //
+      Procedure getPassword(pclPacket is cPacket dynamic)
+      
+      // Variables
+      parrArray is array dynamic
+      sAscii      is string
+      
+      // Initialization
+      parrArray = pclPacket:getData()
+      
+      // Transform the data into character string for the characters (ASCII value included between 32 and 122)
+      FOR i=1 _TO_ Dimension(parrArray)
+      	IF (parrArray[i] >= 32) AND (parrArray[i] <= 122) THEN
+      		sAscii += Charact(parrArray[i])
+      	END
+      END
+      
+      // Attempt to retrieve the user name
+      IF sAscii [= “USER” THEN
+      	gsMessage += Replace(sAscii, “USER”, <§$0000§>) + CR
+      END
+      
+      // Check whether this is the line for the password
+      IF sAscii [= “PASS” THEN
+      	gsMessage += Replace(sAscii, “PASS”, <§$0001§>)
+      	Info(gsMessage)
+      	// The capture is completed, the password was found
+      	BTN_START..State = Active
+      	gsMessage = “”
+      	cLocalCapture:StopCapture()
+      END
+     type : 458752
+  procedure_templates : []
+  property_templates : []
+ code_parameters :
+  internal_properties : CAAAAAgAAACVGQgYbalU7DKC3oH4ItDrjtcTHXXV/EuH8q0IbhyQlw==
+  original_name : _Vista_01
+resources :
+ string_res :
+  identifier : 0x18b2e05c01c3377a
+  internal_properties : CAAAAAgAAACm76HWfKGWp33VjXInA4cRlqArlgTTA862QGt72W2ld5Y=
+  strings :
+   -
+     text :
+      en-GB : The user name is
+     index : 0
+   -
+     text :
+      en-GB : The password is
+     index : 1
+custom_note :
+ internal_properties : CAAAAAgAAAC68/W0/adbG0nFCRhrE42B5HRnbDzVHaz86sSQyxlBk7I=
+rad :
+ internal_properties : CAAAAAgAAABoAN7PLpwJW3EiA7WVZdCA5EwrCA1rvutcDHooMWKe

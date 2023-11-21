@@ -1,0 +1,156 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : WD Network frames
+ major_version : 28
+ minor_version : 0
+ type : 4097
+ description : The purpose of the project is to listen to an Ethernet network.
+ subtype : 0
+project :
+ identifier : 0x0
+ internal_properties : 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
+ configurations :
+  -
+    name : WD Network frames
+    internal_properties : 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
+    configuration_id : 17535396046588795712
+    type : 1
+    generation_name : WD Network frames.exe
+    version :
+     version : VI200041K
+     internal_generation_version : 1
+     autoincrement_version : false
+    icon_filename : .\description.ico
+    language : 2
+    new_features_help :
+     name : ""
+     internal_properties : CAAAAAgAAADiCqpWay5xNjTd3v0KrG2JFFJjAofbMUaCemnwopQXK4ihRpQuQVUxbFzYF/Hnzw0C1D7NN3B16y0H
+ elements :
+  identifier : 0x4abcc723003bd954
+  elements :
+   -
+     name : cPacket
+     identifier : 0x48a21afd00013645
+     internal_properties : CAAAAAgAAACoppCMO2BIU2qM2joV/ZQAxpc9JQDGcZSOe91Fc6XvcZOT8uF5SRexN+Pd21uVbWOttQ==
+     physical_name : .\cPacket.wdc
+     type : 4
+   -
+     name : Global procedures of WD Network frames
+     identifier : 0x489b03280001592a
+     internal_properties : CAAAAAgAAAA9GRUJtuPL1PkfHf1YMdk9azRmds0s2QBODxPwO+0hJy0zLBc2lFx0ynZgWNgI8OAoKA==
+     physical_name : .\Global procedures of WD Network frames.wdg
+     type : 7
+   -
+     name : WIN_Filtering
+     identifier : 0x48b27ad700005e47
+     internal_properties : CAAAAAgAAABBPbnt2oevQAV7iUnUj9ktP0zqso2DaTW/cL2FjZvzFTfZrqW6CMjgZtLMNPz0jHxEzA==
+     physical_name : .\WIN_Filtering.wdw
+     type : 2
+   -
+     name : WIN_Example
+     identifier : 0x48b2e070000084b0
+     internal_properties : CAAAAAgAAAAdeXUplsNrdNk/vZ245AlVy/pCSvsh8uy/UAKeBBQG4mqK2fpWtHwUqpYA+Lgo0MAICA==
+     physical_name : .\WIN_Example.wdw
+     type : 2
+   -
+     name : cCapture
+     identifier : 0x489b0b8f00032b91
+     internal_properties : CAAAAAgAAABPy6f7SHU9bnep+1/6WE+ftTB8PBnwLRROZ9xvCBB6nqJOGToU9rrSFAD6xk6CfnJa2g==
+     physical_name : .\clCapture.wdc
+     type : 4
+   -
+     name : cPacketTCP
+     identifier : 0x48a5fa2f00012494
+     internal_properties : CAAAAAgAAADMSiRwz/S87/YYFvahMFQIGilRuQIrABG2mUv3LPwY8Bg6DzQtnWN9w395R88B+e/ZWQ==
+     physical_name : .\cPacketTCP.wdc
+     type : 4
+   -
+     name : WIN_Main
+     identifier : 0x489af1140000bb48
+     internal_properties : CAAAAAgAAACgnpiEIxgQy+I0spK9HfzITm8F7eg288aOO5NdQ8XPIdMDQgFRsX8Zr2tVo2OdZVulrQ==
+     physical_name : .\WIN_Main.wdw
+     type : 2
+   -
+     name : cPacketUDP
+     identifier : 0x48a5fa3d00035e04
+     internal_properties : CAAAAAgAAADFQS1xzuvD3OE3RYWQQRH1Y3we7uXGBYO29WBae73RJ90TbGf+zJQssm5oUNAA+OjQUA==
+     physical_name : .\cPacketUDP.wdc
+     type : 4
+   -
+     name : cPacketICMP
+     identifier : 0x48a5f9d70005cc19
+     internal_properties : CAAAAAgAAADQLggUk8hge9IkYiJtv9CMtjsFBaxVMvGiphfayV+9GynVkLOhYS9Jn5sF87Mt1cs1PQ==
+     physical_name : .\cPacketICMP.wdc
+     type : 4
+   -
+     name : cPacketIGMP
+     identifier : 0x41010312003a2610
+     internal_properties : CAAAAAgAAAA2HB4CoZ6WmbzCBMBTF1oqJKXjuwdrquWug069sk/NO7UNNC87j1Fr/TmjHeUb59kjIw==
+     physical_name : .\cPacketIGMP.wdc
+     type : 4
+   -
+     name : WinDevMessageBox
+     identifier : 0x46c5857700fc2e9d
+     internal_properties : CAAAAAgAAADqYNI29bL6JSzj58EnrolCcMevhzbxaGxKae6XON42qhr0iRXWal3AjbUviQnHsyXvdw==
+     physical_name : .\WinDevMessageBox.WDW
+     type : 2
+   -
+     name : WinDevDialogBox
+     identifier : 0x46c5857901043999
+     internal_properties : CAAAAAgAAAAiGBoOverC3eSrvwPw3v6ssvH5oRgbr1CulODtJvAkhESujzrFRCUIxX1nUdEP690nLw==
+     physical_name : .\WinDevDialogBox.WDW
+     type : 2
+  other_elements : []
+  uml_model : .\Modèle WD Trames reseau.uml
+  net_assemblies : []
+  uwp_api : []
+  external_components : []
+  internal_components : []
+ report_and_queries_enabled : false
+ common_generation_directory : true
+ languages :
+  - en-GB
+ wd_style_sheet : .\WD Sniffer.sty
+ wb_style_sheet : .\WD Sniffer.wws
+ code_elements :
+  internal_properties : CAAAAAgAAABauXuF8B00ss6s4WSonR78o/WK+dFWRvq6c3pn2H57cLm9gIkoLP2M6sVJ0dfM25fyr2/O8e10KmRdn/HwVhCRO6xfG9KJzFWNEv9G8uYlxg==
+  type_code : 0
+  p_codes :
+   -
+     internal_properties : CAAAAAgAAABtjwfzQBq6qXzfzGwMzwIEGp16vMPZW1EL1c1T9oELF5x4F56371GHRXWxMdAQV/kHNC49bicZAujrz6Z5mpWa2PT/6kqwmLDt9fAe50upx/riLKhh0MP8fSt2cddDz7vOIyvAgZDjQtKbudVMsMWHcTq3qbFyXZuJR820i5/M2cbtkgMarNXTXECVRnVQig==
+     code : |1-
+      // 
+      // Class for capturing the packets
+      // The parameter is the procedure that will be automatically called when a packet is received.
+      // The prototype of the procedure necessarily takes a parameter that is a dynamic cPacket
+      //
+      clMainCapture is cCapture(“processPacket”)
+      
+      // Array of cPacket class (contains the packets received)
+      gparrPacketList is array of 0 cPacket dynamic
+     type : 196608
+   -
+     type : 196621
+   -
+     type : 196627
+     enabled : false
+  orphans :
+   -
+     name : WD Network frames
+     identifier : 0x4abcc7230047d9c1
+     code_elements :
+      type_code : 159
+      p_codes : []
+ code_parameters :
+  internal_properties : CAAAAAgAAACVGQgYbalU7DKC3oH4ItDrjtcTHXXV/EuH8q0IbhyQlw==
+rad :
+ internal_properties : CAAAAAgAAABhIL0UXeZmxDJxY3Xy0Q==
+project_explorer :
+ explorer_type : project
+resources :
+ string_res :
+  identifier : 0x0
+  internal_properties : CAAAAAgAAACm76HWfKGWp33VjXInA4cRlqArlgTTA862QGt72W2ld5Y=
+custom_note :
+ internal_properties : CAAAAAgAAAAd98VSJfHHqE3P0QHwrwdhn7ig8dWBR6valpUTgnAMTVXiDg==

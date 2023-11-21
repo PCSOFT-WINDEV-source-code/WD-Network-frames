@@ -1,0 +1,489 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : cPacketICMP
+ major_version : 28
+ minor_version : 0
+ type : 4
+ description : ""
+ subtype : 0
+class :
+ identifier : 0x18a5f9d40032c274
+ internal_properties : CAAAAAgAAAB2/vstTMCJbS/hlxjFxirSqKvCUuv8YxgpWyl7S3iA
+ code_elements :
+  internal_properties : CAAAAAgAAAD6cnTfNq0kvpoDqWojczARxhwFybPoE1ishMfCQhOf3rgesLTqU6RqQwBd7Ls7edjDH11Qg3o/fqfMszOvNwq/4hHc+c8IyHxSvBFA+cmZYKbhnovfPw9y5CZOq6HmRxA0gsxaBdwCkJDvW3HS+k5OjrVnfh7n9E/ozq2nmx8rP4cIpPkqmpib3mToLeBtaSQHi8EX2OlmSPolILHlmykEoqhyAwJ5fBBXQTXRBGd3WCqz0MAHwD7ryCTqmFitVYDYBBKG/PglocM+OzO1WCFZK5A40ZrFbVxocIFkXliwfLx2/5RiX3bnkMO1tmqLO+xjvdoD6dVZfnVGupx8EuvVc1GHp9WvY8nLkF1DI4QoRtUy/hJZLsAapW8LcA8T8STCXp+VAZizRSbR/CrgoMAVPY4rcU7CVBQFHBXy9/Dqu1LIWCcMjtk=
+  type_code : 10
+  p_codes :
+   -
+     internal_properties : CAAAAAgAAAC9WUULI6GOvxE2c/kaApRHNH5AhlGWXXXJxrTOWlUzWdzhQSnw/zUzas2Sp9k4pSyHUzVb0GGG47itzfJzI/PUc8+3e5JhfwnvIOhJs43Em3k2Q0FDUbdCg4w180nltG63W8QOYAHxpOBjIrkcAWsjHk1LzW/O/3u627Xo8R4yMQ==
+     code : |1+
+      
+      // 
+      // Class representing an ICMP packet circulating on an Ethernet network in IPV4
+      //
+      cPacketICMP is Class
+      	inhérits of cPacket
+      	
+      // Members relative to a ICMP packet
+      PRIVATE
+      	_ICMPType        is 1-byte unsigned int
+      	_ICMPCode        is 1-byte unsigned int
+      	_ICMPChecksum    is 2-byte unsigned int
+      	_ICMPIdentifier is 2-byte unsigned int 
+      	_ICMPSequence    is 2-byte unsigned int 	 
+      	_ICMPDescription is string
+      END
+      
+     type : 131072
+  procedures :
+   -
+     name : Constructor
+     procedure_id : 1776100316999303796
+     type_code : 27
+     code : |1+
+      Procedure Constructor(rDuration is real)
+      
+      Constructor cPacket(rDuration)
+     type : 589824
+   -
+     name : Destructor
+     procedure_id : 1776100316999369332
+     type_code : 28
+     code : |1+
+      Procedure Destructor()
+      
+     type : 655360
+   -
+     name : processPacket
+     internal_properties : CAAAAAgAAAAxidMvT7eQr5yppcIvz7RMOm0lYbjvN6IR1Ch7Rr9HxM7DJ+XpqPPY6IrHmxnXYm1LumrioT7xc54WNS3bbB28XIzOafPUUaATKFJahioxFjvE3Vg1+aibStUz+gthF3KU15EA7IxWZdqHNTEegbrL8OpF//AE5yiysZO88YdvqnWtSiPbJWdu/Ct6WvbZ0NBoJzvK
+     procedure_id : 1776107700051311761
+     type_code : 12
+     code : |1-
+      // Summary: Processes the content of an ICMP packet
+      // Syntax:
+      //processPacket (<nBuffer>, <nByteRead> is int)
+      //
+      // Parameters:
+      //	nBuffer: <specify the role of nBuffer>
+      //	nByteRead (int): <specify the role of nByteRead here>
+      // Return value:
+      // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure VIRTUAL processPacket(nBuffer, nByteRead is int)
+      
+      // Call the method of the parent class to fill the IP header
+      Ancestor:processPacket(nBuffer,nByteRead)
+      
+      // Variable
+      nSizeIPHeader is int
+      
+      // Initialization
+      nSizeIPHeader = :_IPIHL * 4 // IHL * 32 bits
+      
+      // Fill the header
+      :_ICMPType = :_nPacket[nSizeIPHeader+1]      
+      :_ICMPCode = :_nPacket[nSizeIPHeader+2]       
+      :_ICMPChecksum  = (:_nPacket[nSizeIPHeader+3] * 256)   + :_nPacket[nSizeIPHeader+4]
+      :_ICMPIdentifier = (:_nPacket[nSizeIPHeader+5] * 256) + :_nPacket[nSizeIPHeader+6] 
+      :_ICMPSequence = (:_nPacket[nSizeIPHeader+7] * 256)    + :_nPacket[nSizeIPHeader+8]
+      
+      // Define the description using the Type,Code combination
+      :_ICMPDescription = :processICMPDescription(:_ICMPType, :_ICMPCode)
+      
+      // Fill the data
+      Dimension(:_nData,:_nBytesReceived - nSizeIPHeader - 8) // Remove the size of the IP and ICMP header (8 bytes)
+      FOR I = 1 _TO_ Dimension(:_nData)
+      	:_nData[I] = :_nPacket[nSizeIPHeader + 8 + I]
+      END
+     type : 458752
+   -
+     name : processICMPDescription
+     internal_properties : CAAAAAgAAACsrpWkrQMX88hhiYalBX//vMUZlNI3fAvp4G3VDbD0sNdSoOaT1WxszAksMl/nQDyO5D7Lgf6ODrVuOC1GdAXgMW2W4P+EeFRbngceKwzqC9LFUgkCArgGRcaNrNtbRiuyK3RjDx+Za+0z15uuYBBYsMm+vQ5N4UdRGmMkf2BRMV1QEZnhKCC6Df5aoRDZxKBaIGXcBvxc/Zh7AgxX7tOCZsGKyeXBzfcFD3BZiF58PQHdLOXoerVn+G4Nu99vrzt4dXaVdE4pY1Vr2Ua50oYkWioCO/8=
+     procedure_id : 1776109680032810219
+     type_code : 12
+     code : |1+
+      // Summary: Returns the description associated with an ICMP packet
+      // Syntax:
+      //[ <Result> = ] processICMPDescription (<nType> is unsigned int on 1 byte, <nCode> is unsigned int on 1 byte)
+      //
+      // Parameters:
+      //	nType (unsigned int on 1 byte): <specify the role of nType here>
+      //	nCode (1-byte unsigned integer): <specify the role of nCode>
+      // Return value:
+      // 	string:       // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure PRIVATE  processICMPDescription(nType is 1-byte unsigned int, nCode is 1-byte unsigned int)
+      
+      // Variable
+      sCombination, sType, sCode are strings
+      
+      // Initialization
+      sType = nType
+      sCode = nCode
+      sCombination = sType + sCode
+      
+      // Define the description using the Type,Code combination
+      SWITCH sCombination
+      	CASE “00”  : 
+      		RESULT <§$0000§>
+      	CASE “30”  :
+      		RESULT <§$0001§>
+      	CASE “31”  :
+      		RESULT <§$0002§>
+      	CASE “32” :
+      		RESULT <§$0003§>
+      	CASE “33” :
+      		RESULT <§$0004§>
+      	CASE “34”:
+      		RESULT <§$0005§>
+      	CASE “35” :
+      		RESULT <§$0006§>
+      	CASE “36” :
+      		RESULT <§$0007§>
+      	CASE “37” :
+      		RESULT <§$0008§>
+      	CASE “38” :
+      		RESULT <§$0009§>
+      	CASE “39” :
+      		RESULT <§$000a§>
+      	CASE “310” :
+      		RESULT <§$000b§>
+      	CASE “311” :
+      		RESULT <§$000c§>
+      	CASE “312” :
+      		RESULT <§$000d§>
+      	CASE “313” :
+      		RESULT <§$000e§>
+      	CASE “314” :
+      		RESULT <§$000f§>
+      	CASE “315” :
+      		RESULT <§$0010§>
+      	CASE “40”
+      		RESULT <§$0011§>
+      	CASE “50” :
+      		RESULT <§$0012§>
+      	CASE “51” :
+      		RESULT <§$0013§>
+      	CASE “52” :
+      		RESULT <§$0014§>
+      	CASE “53” :
+      		RESULT <§$0015§>
+      	CASE “80”
+      		RESULT <§$0016§>
+      	CASE “90”
+      		RESULT <§$0017§>
+      	CASE “100”
+      		RESULT <§$0018§>
+      	CASE “110”
+      		RESULT <§$0019§>
+      	CASE “111”
+      		RESULT <§$001a§>
+      	CASE “120”
+      		RESULT <§$001b§>
+      	CASE “121”
+      		RESULT <§$001c§>
+      	CASE “122”
+      		RESULT <§$001d§>
+      	CASE “130”
+      		RESULT <§$001e§>
+      	CASE “140”
+      		RESULT <§$001f§>
+      	CASE “150”
+      		RESULT <§$0020§>
+      	CASE “160”
+      		RESULT <§$0021§>
+      	CASE “170”
+      		RESULT <§$0022§>
+      	CASE “180”
+      		RESULT <§$0023§>
+      	OTHER CASE :
+      		RESULT <§$0024§>
+      END
+      
+      
+     type : 458752
+   -
+     name : getICMPChecksum
+     internal_properties : CAAAAAgAAADHG8E9vD1O1bDtLy6jy0xsKm1l/5796QzNWHa3auMftJ4Lox8Dyi3WwIJ5n8UX6h1bWh4Mo5jndV4eV9FftCUkwPiCM50uB5Lv7MUtU3VqHaLbrFcKLOukQ6aeXfBMoMnzruyzfbN1QjeUZNDfiENSzzFA4jHrtnGr1mL72u50rfgAXT7EDE4Xhfwpke8QOb52Ncm8
+     procedure_id : 1776306587098223210
+     type_code : 12
+     code : |1-
+      // Summary: Returns the checksum of the ICMP packet
+      // Syntax:
+      //[ <Result> = ] getICMPChecksum ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	unsigned int on 2 bytes: // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure getICMPChecksum()
+      
+      RESULT :_ICMPChecksum
+     type : 458752
+   -
+     name : getICMPCode
+     procedure_id : 1776306810436639716
+     type_code : 12
+     code : |1-
+      // Summary: Returns the code
+      // Syntax:
+      //[ <Result> = ] getICMPCode ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	unsigned 1-byte integer: // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure getICMPCode()
+      
+      RESULT :_ICMPCode
+     type : 458752
+   -
+     name : getICMPIdentifier
+     procedure_id : 1776306831911547045
+     type_code : 12
+     code : |1-
+      // Summary: Returns the identifier
+      // Syntax:
+      //[ <Result> = ] getICMPIdentifier ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	unsigned int on 2 bytes: // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure getICMPIdentifier()
+      
+      RESULT :_ICMPIdentifier
+     type : 458752
+   -
+     name : getICMPSequence
+     procedure_id : 1776307252818374579
+     type_code : 12
+     code : |1-
+      // Summary: Returns the sequence
+      // Syntax:
+      //[ <Result> = ] getICMPSequence ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	unsigned int on 2 bytes: // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure getICMPSequence()
+      
+      RESULT :_ICMPSequence
+     type : 458752
+   -
+     name : getICMPType
+     procedure_id : 1776307282883217828
+     type_code : 12
+     code : |1-
+      // Summary: Returns the type
+      // Syntax:
+      //[ <Result> = ] getICMPType ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	unsigned 1-byte integer: // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure getICMPType()
+      
+      RESULT :_ICMPType
+     type : 458752
+   -
+     name : getICMPDescription
+     procedure_id : 1776308120403281122
+     type_code : 12
+     code : |1-
+      // Summary: Returns the description
+      // Syntax:
+      //[ <Result> = ] getICMPDescription ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	string: //  	 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure getICMPDescription()
+      
+      RESULT :_ICMPDescription
+     type : 458752
+  procedure_templates : []
+  property_templates : []
+ code_parameters :
+  internal_properties : CAAAAAgAAACVGQgYbalU7DKC3oH4ItDrjtcTHXXV/EuH8q0IbhyQlw==
+  original_name : CClasse1
+resources :
+ string_res :
+  identifier : 0x18a5f9cf002fae9e
+  internal_properties : CAAAAAgAAACm76HWfKGWp33VjXInA4cRlqArlgTTA862QGt72W2ld5Y=
+  strings :
+   -
+     text :
+      en-GB : Answer to an echo request
+     index : 0
+   -
+     text :
+      en-GB : Unavailable network
+     index : 1
+   -
+     text :
+      en-GB : Cannot access host
+     index : 2
+   -
+     text :
+      en-GB : Protocol unavailable
+     index : 3
+   -
+     text :
+      en-GB : Cannot access port
+     index : 4
+   -
+     text :
+      en-GB : Fragmentation required but forbidden
+     index : 5
+   -
+     text :
+      en-GB : Routing error from the source
+     index : 6
+   -
+     text :
+      en-GB : "Destination network not found "
+     index : 7
+   -
+     text :
+      en-GB : Destination host not found
+     index : 8
+   -
+     text :
+      en-GB : Isolated source machine
+     index : 9
+   -
+     text :
+      en-GB : Destination network administratively forbidden
+     index : 10
+   -
+     text :
+      en-GB : Destination host administratively forbidden
+     index : 11
+   -
+     text :
+      en-GB : Network not available for this type of service
+     index : 12
+   -
+     text :
+      en-GB : Host not available for this type of service
+     index : 13
+   -
+     text :
+      en-GB : Communication forbidden by a filter
+     index : 14
+   -
+     text :
+      en-GB : Host Precedence Violation
+     index : 15
+   -
+     text :
+      en-GB : Precedence cutoff in effect
+     index : 16
+   -
+     text :
+      en-GB : Data volume too large
+     index : 17
+   -
+     text :
+      en-GB : Redirection for a host
+     index : 18
+   -
+     text :
+      en-GB : Redirection for a host and a given service
+     index : 19
+   -
+     text :
+      en-GB : Redirection for a network
+     index : 20
+   -
+     text :
+      en-GB : Redirection for a network and a given service
+     index : 21
+   -
+     text :
+      en-GB : Echo request
+     index : 22
+   -
+     text :
+      en-GB : Router warning
+     index : 23
+   -
+     text :
+      en-GB : Router request
+     index : 24
+   -
+     text :
+      en-GB : Lifespan timeout before reaching destination
+     index : 25
+   -
+     text :
+      en-GB : Maximum amount of reassembly time the passed frame
+     index : 26
+   -
+     text :
+      en-GB : Invalid IP header
+     index : 27
+   -
+     text :
+      en-GB : Required option missing
+     index : 28
+   -
+     text :
+      en-GB : Wrong length
+     index : 29
+   -
+     text :
+      en-GB : Request for a time mark
+     index : 30
+   -
+     text :
+      en-GB : Answer for a time mark
+     index : 31
+   -
+     text :
+      en-GB : Network address request
+     index : 32
+   -
+     text :
+      en-GB : Network address answer
+     index : 33
+   -
+     text :
+      en-GB : Subnet mask request
+     index : 34
+   -
+     text :
+      en-GB : Subnet mask answer
+     index : 35
+   -
+     text :
+      en-GB : Unknown combination
+     index : 36
+custom_note :
+ internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ

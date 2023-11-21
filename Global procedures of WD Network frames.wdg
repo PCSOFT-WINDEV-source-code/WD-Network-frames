@@ -1,0 +1,113 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : Global procedures of WD Network frames
+ major_version : 28
+ minor_version : 0
+ type : 7
+ description : ""
+ subtype : 0
+procedure_set :
+ identifier : 0x1107efd208b1b599
+ internal_properties : CAAAAAgAAABGLu41kG7fjQV3iS4F72qmnKaNh5694reolNKIW0iw
+ code_elements :
+  internal_properties : CAAAAAgAAADfN7o8CEmKgqB4rRC+3C7Tuy5GY9KOTPhezqCfh1A8zQcTcaVAxNIEStQ/ZRIJlQKHHZlb8XT2DNFr+BmL5gYMReqWf0qSmMAit8Zk53WDuEAaWq6Uw4VYjDJtEyidEXDPEEAoaeuM+M8YstS+POxx0Gl6mjcz9uB7q7o9lT/ZZfZmiGj0D8RfewaAoNFWnK6PozcjKwJ0mUSJ6suFsysg3oK0L6EUAWIC2pQAL8MSUaHHA2mLtYjn6NJMhqTK4UyiDDYGYp0PVBo0
+  type_code : 31
+  p_codes : []
+  procedures :
+   -
+     name : processPacket
+     internal_properties : CAAAAAgAAABUnZRCCr4HZ5xAbWJHqMqagM5uYoSU/nkKffMc0Zrrbp2avccEuxzJfphh6cc017VPXRadRkHh2dk9TOQ3UMmO1l3RXMogGfmZXNwRUk0il6UGzo0kAXTq/wa7nRMnVgvH47pAq/lAuzEs6WsWreDJk0M/7ziQnxSD6PVaUQKI/SMZJakjFjrQ9izdothPiwKo/vq6JAmV7ZAvg3gzI22O8V4Ve9ZlkEJ5zcxJsX6BkcLsTLwlmfXc9mN4nCx2D+O4ujx18Y9TzddujAc=
+     procedure_id : 1227213108849849769
+     type_code : 15
+     code : |1-
+      // Summary: Callback called when receiving a packet
+      // Syntax:
+      //processPacket (<pclPacket> is cPacket dynamic)
+      //
+      // Parameters:
+      //	pclPacket (dynamic cPacket): Packet received
+      // Return value:
+      // 	None
+      //
+      // Example:
+      // Indicate an example.
+      //
+      Procedure processPacket(pclPacket is cPacket dynamic)
+      
+      // Add the packet to the array
+      ArrayAdd(gparrPacketList,pclPacket)
+      
+      // Insert a new line into the list of packets according to the type of packet
+      displayPacket(pclPacket)
+      
+      // Total
+      Message(<§@189b03280051592a0000§> + gparrPacketList..Occurrence)
+      
+      // Is the capture completed?
+      IF gparrPacketList..Occurrence = WIN_Main.EDT_NbFrame THEN
+      	WIN_Main.stopCapture()
+      END
+     type : 458752
+   -
+     name : displayPacket
+     internal_properties : CAAAAAgAAADTfxFEAS7vbYMQ+tqwZK9Ibhj7+dKa3nPTfUyTe1ZlyUi4cmHj6xe1B/CCa/oFiV/0Ce4pi/zMwWBkLT6pOFV4a+AReSmcVg9h71U4PvjWEVtgKAiQdUtZ7HvYAxoy5L1HYtQL1ZtbqNmSQCrXgEdm48WoHJfNnhnDalbpDmHnAmnoU4lDgnxOtcmX1jYVg05B3JzMKt7Aqj6v6uNE3q6eEqMWv5+AiaHXfQ1CrlJoltd2vok=
+     procedure_id : 1227213108849915305
+     type_code : 15
+     code : |1-
+      // Summary: Displays a packet and its information in the window
+      // Syntax:
+      //displayPacket (<pclPacket> is cPacket dynamic)
+      //
+      // Parameters:
+      //	pclPacket (dynamic cPacket): Instance of the packet to display
+      // Return value:
+      // 	None
+      //
+      // Example:
+      // Indicate an example.
+      //
+      Procedure displayPacket(pclPacket is cPacket dynamic)
+      
+      // Variables
+      pclPacketICMP is cPacketICMP dynamic
+      pclPacketTCP  is cPacketTCP dynamic
+      pclPacketUDP  is cPacketUDP dynamic
+      sAppProtocol is string
+      
+      // Initialization
+      sAppProtocol = pclPacket:getAppProtocol() 
+      
+      IF sAppProtocol <> “” THEN
+      	sAppProtocol = “ (”+sAppProtocol+“)”
+      END
+      
+      // Display the information according to the packet
+      SWITCH pclPacket..Class
+      	CASE cPacketICMP :
+      		pclPacketICMP = pclPacket
+      		TableInsertLine(WIN_Main.TABLE_Package,WIN_Main.TABLE_Package..Occurrence+1,gparrPacketList..Occurrence,pclPacketICMP:getTimeStamp(),pclPacketICMP:getIPProtocol(),pclPacketICMP:getIPSource(),“N/A”,pclPacketICMP:getIPRecipient(),“N/A”)	
+      	CASE cPacketTCP :
+      		pclPacketTCP = pclPacket
+      		TableInsertLine(WIN_Main.TABLE_Package,WIN_Main.TABLE_Package..Occurrence+1,gparrPacketList..Occurrence,pclPacketTCP:getTimeStamp(),pclPacketTCP:getIPProtocol()+sAppProtocol,pclPacketTCP:getIPSource(),pclPacketTCP:getTCPSourcePort(),pclPacketTCP:getIPRecipient(),pclPacketTCP:getTCPRecipientPort())	
+      	CASE cPacketUDP :
+      		pclPacketUDP = pclPacket
+      		TableInsertLine(WIN_Main.TABLE_Package,WIN_Main.TABLE_Package..Occurrence+1,gparrPacketList..Occurrence,pclPacketUDP:getTimeStamp(),pclPacketUDP:getIPProtocol()+sAppProtocol,pclPacketUDP:getIPSource(),pclPacketUDP:getUDPSourcePort(),pclPacketUDP:getIPRecipient(),pclPacketUDP:getUDPRecipientPort())	
+      END
+     type : 458752
+  procedure_templates : []
+  property_templates : []
+ code_parameters :
+  internal_properties : CAAAAAgAAACVGQgYbalU7DKC3oH4ItDrjtcTHXXV/EuH8q0IbhyQlw==
+  original_name : COL_Collection1
+resources :
+ string_res :
+  identifier : 0x189b03280051592a
+  internal_properties : CAAAAAgAAACm76HWfKGWp33VjXInA4cRlqArlgTTA862QGt72W2ld5Y=
+  strings :
+   -
+     text :
+      en-GB : "Number of packets received: "
+     index : 0
+custom_note :
+ internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ

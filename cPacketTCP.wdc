@@ -1,0 +1,419 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : cPacketTCP
+ major_version : 28
+ minor_version : 0
+ type : 4
+ description : ""
+ subtype : 0
+class :
+ identifier : 0x18a5fa2c00271af0
+ internal_properties : CAAAAAgAAAB2/vstTMCJbS/hlxjFxirSqKvCUuv8YxgpWyl7S3iA
+ code_elements :
+  internal_properties : CAAAAAgAAAApPG1a7eQJP775actMA69TIeBD0UeLbC2nXoi92MOXJvRMNX5bNYHRPS1Se+3lIINQuXokql/ayC5TRUB72pkjPKYbqzokwdnOzVUR6ljrqN4thjrQc/SvdzoVLjfgmO2L/8srL5Oj9cuSPEWpLZDlNDNe7F8u9D3kTTOfmv0=
+  type_code : 10
+  p_codes :
+   -
+     internal_properties : CAAAAAgAAAC9WUULI6GOvxE2c/kaApRHNH5AhlGWXXXJxrTOWlUzWdzhQSnw/zUzas2Sp9k4pSyHUzVb0GGG47itzfJzI/PUc8+3e5JhfwnvIOhJs43Em3k2Q0FDUbdCg4w180nltG63W8QOYAHxpOBjIrkcAWsjHk1LzW/O/3u627Xo8R4yMQ==
+     code : |1+
+      
+      // 
+      // Class representing an TCP packet circulating on an Ethernet network in IPV4
+      //
+      cPacketTCP is Class
+      	inhérits of cPacket
+      	
+      // Members relative to a TCP packet
+      PRIVATE
+      	_TCPSourcePort      is 2-byte unsigned int
+      	_TCPDestinationPort is 2-byte unsigned int
+      	_TCPSequence        is 4-byte unsigned int
+      	_TCPNumACK          is 4-byte unsigned int	
+      	_TCPOffset          is 1-byte unsigned int
+      	_TCPURG             is 1-byte unsigned int
+      	_TCPACK             is 1-byte unsigned int
+      	_TCPPSH             is 1-byte unsigned int
+      	_TCPRST             is 1-byte unsigned int
+      	_TCPSYN             is 1-byte unsigned int
+      	_TCPFINISH          is 1-byte unsigned int	
+      	_TCPWindow         is 2-byte unsigned int
+      	_TCPChecksum        is 2-byte unsigned int  
+      	_TCPPointer        is 2-byte unsigned int
+      END
+      
+     type : 131072
+  procedures :
+   -
+     name : Constructor
+     procedure_id : 1776100694955662064
+     type_code : 27
+     code : |1-
+      Procedure Constructor(rDuration is real)
+      
+      Constructor cPacket(rDuration)
+     type : 589824
+   -
+     name : Destructor
+     procedure_id : 1776100694955727600
+     type_code : 28
+     code : |1+
+      Procedure Destructor()
+      
+     type : 655360
+   -
+     name : processPacket
+     internal_properties : CAAAAAgAAAAs8Re5PiCrqLmLpIZU08NP1yU6umhfxRJ7nfvJrg0HnGdm5QwKgBNtJL8GNHiaIwHdANejqcAcc6k/3RIzBM2cIVoyf0rk5ozbiN9PVZ8N7umcANdR2v498hbqLTnu09mKK0KjJovuOQzQbOJaGpJQfLDyumLPAwggxpC5pyjdyHK0lEEs23bzG+fQzJcFzYb5hP7EEfQbjWoltYASIWFmm+Nv
+     procedure_id : 1776111032947626742
+     type_code : 12
+     code : |1-
+      // Summary: Processes the TCP packet
+      // Syntax:
+      //processPacket (<nBuffer>, <nByteRead> is int)
+      //
+      // Parameters:
+      //	nBuffer: Content of the packet
+      //	nByteRead (integer): Number of bytes read
+      // Return value:
+      // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure VIRTUAL processPacket(nBuffer, nByteRead is int)
+      
+      // Call the method of the parent class to fill the IP header
+      Ancestor:processPacket(nBuffer,nByteRead)
+      
+      // Variable
+      nSizeIPHeader is int
+      nSizeTCPHeader is int
+      
+      // Initialization
+      nSizeIPHeader = :_IPIHL * 4 // IHL * 32 bits
+      
+      // Fill the header, knowing that the first 20 bytes of the packet are the IP header
+      :_TCPSourcePort = (:_nPacket[nSizeIPHeader+1] * 256) + :_nPacket[nSizeIPHeader+2]
+      :_TCPDestinationPort = (:_nPacket[nSizeIPHeader+3] * 256) + :_nPacket[nSizeIPHeader+4]
+      :_TCPSequence = (:_nPacket[nSizeIPHeader+5] * Power(2,24)) + (:_nPacket[nSizeIPHeader+6] * Power(2,16)) +  (:_nPacket[nSizeIPHeader+7] * Power(2,8)) + :_nPacket[nSizeIPHeader+8] 
+      :_TCPNumACK   = (:_nPacket[nSizeIPHeader+9] * Power(2,24)) + (:_nPacket[nSizeIPHeader+10] * Power(2,16)) +  (:_nPacket[nSizeIPHeader+11] * Power(2,8)) + :_nPacket[nSizeIPHeader+12] 
+      :_TCPOffset   = BinaryAND(:_nPacket[nSizeIPHeader+13],0xF0) / 16
+      :_TCPURG 	  = BinaryAND(:_nPacket[nSizeIPHeader+14], 0x20) / 32           
+      :_TCPACK 	  = BinaryAND(:_nPacket[nSizeIPHeader+14], 0x10) / 16            
+      :_TCPPSH 	  = BinaryAND(:_nPacket[nSizeIPHeader+14], 0x08) / 8          
+      :_TCPRST 	  = BinaryAND(:_nPacket[nSizeIPHeader+14], 0x04) / 4            
+      :_TCPSYN 	  = BinaryAND(:_nPacket[nSizeIPHeader+14], 0x02) / 2            
+      :_TCPFINISH   = BinaryAND(:_nPacket[nSizeIPHeader+14], 0x01)        
+      :_TCPWindow  = (:_nPacket[nSizeIPHeader+15] * 256) + :_nPacket[nSizeIPHeader+16]
+      :_TCPChecksum = (:_nPacket[nSizeIPHeader+17] * 256) + :_nPacket[nSizeIPHeader+18]
+      :_TCPPointer = (:_nPacket[nSizeIPHeader+19] * 256) + :_nPacket[nSizeIPHeader+20]
+      
+      // Fill the data
+      nSizeTCPHeader = :_TCPOffset*4 // 32 bits
+      Dimension(:_nData,:_nBytesReceived - nSizeIPHeader - nSizeTCPHeader) // Remove the size of the IP and TCP header (offset * 4)
+      FOR I = 1 _TO_ Dimension(:_nData)
+      	:_nData[I] = :_nPacket[nSizeIPHeader + nSizeTCPHeader + I]
+      END
+      
+      // If the list of ports is empty, fill it
+      IF ::_PortList..Occurrence = 0 THEN
+      	:fillPort()
+      END
+      
+      // Definition of the application protocol
+      :_AppProtocol = ::_PortList[:_TCPDestinationPort]
+      IF :_AppProtocol = “” THEN :_AppProtocol = ::_PortList[:_TCPSourcePort]
+     type : 458752
+   -
+     name : getTCPSourcePort
+     procedure_id : 1776114228403908035
+     type_code : 12
+     code : |1+
+      // Summary: Returns the source port
+      // Syntax:
+      //[ <Result> = ] getTCPSourcePort ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	unsigned int on 2 bytes:  // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure getTCPSourcePort()
+      
+      RESULT :_TCPSourcePort
+      
+     type : 458752
+   -
+     name : getTCPRecipientPort
+     procedure_id : 1776114335778181111
+     type_code : 12
+     code : |1-
+      // Summary: Returns the recipient port
+      // Syntax:
+      //[ <Result> = ] getTCPDestinationPort ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	unsigned int on 2 bytes:  // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure getTCPRecipientPort()
+      
+      RESULT :_TCPDestinationPort
+     type : 458752
+   -
+     name : getTCPChecksum
+     internal_properties : CAAAAAgAAADHG8E9vD1O1bDtLy6jy0xsKm1l/5796QzNWHa3auMftJ4Lox8Dyi3WwIJ5n8UX6h1bWh4Mo5jndV4eV9FftCUkwPiCM50uB5Lv7MUtU3VqHaLbrFcKLOukQ6aeXfBMoMnzruyzfbN1QjeUZNDfiENSzzFA4jHrtnGr1mL72u50rfgAXT7EDE4Xhfwpke8QOb52Ncm8
+     procedure_id : 1777074720526558787
+     type_code : 12
+     code : |1-
+      // Summary: Returns the checksum
+      // Syntax:
+      //[ <Result> = ] getTCPChecksum ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	unsigned int on 2 bytes: // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure getTCPChecksum()
+      
+      RESULT :_TCPChecksum
+     type : 458752
+   -
+     name : getTCPSequence
+     procedure_id : 1777074939569941790
+     type_code : 12
+     code : |1-
+      // Summary: Returns the sequence
+      // Syntax:
+      //[ <Result> = ] getTCPSequence ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	unsigned int of 4 bytes: // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure getTCPSequence()
+      
+      RESULT :_TCPSequence
+     type : 458752
+   -
+     name : getTCPNumACK
+     internal_properties : CAAAAAgAAADHG8E9vD1O1bDtLy6jy0xsKm1l/5796QzNWHa3auMftJ4Lox8Dyi3WwIJ5n8UX6h1bWh4Mo5jndV4eV9FftCUkwPiCM50uB5Lv7MUtU3VqHaLbrFcKLOukQ6aeXfBMoMnzruyzfbN1QjeUZNDfiENSzzFA4jHrtnGr1mL72u50rfgAXT7EDE4Xhfwpke8QOb52Ncm8
+     procedure_id : 1777074973929753397
+     type_code : 12
+     code : |1-
+      // Summary: Returns the ACK num
+      // Syntax:
+      //[ <Result> = ] getTCPACKNum ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	unsigned int of 4 bytes: // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure getTCPNumACK()
+      
+      RESULT :_TCPNumACK
+     type : 458752
+   -
+     name : getTCPOffset
+     procedure_id : 1777075003994597520
+     type_code : 12
+     code : |1-
+      // Summary: Returns the offset
+      // Syntax:
+      //[ <Result> = ] getTCPOffset ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	unsigned 1-byte integer: // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure getTCPOffset()
+      
+      RESULT :_TCPOffset
+     type : 458752
+   -
+     name : getTCPURG
+     procedure_id : 1777075038354343763
+     type_code : 12
+     code : |1-
+      // Summary: Returns the URG
+      // Syntax:
+      //[ <Result> = ] getTCPURG ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	unsigned 1-byte integer: // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure getTCPURG()
+      
+      RESULT :_TCPURG
+     type : 458752
+   -
+     name : getTCPACK
+     procedure_id : 1777075068419186825
+     type_code : 12
+     code : |1-
+      // Summary: Returns the ACK
+      // Syntax:
+      //[ <Result> = ] getTCPACK ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	unsigned 1-byte integer: // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure getTCPACK()
+      
+      RESULT :_TCPACK
+     type : 458752
+   -
+     name : getTCPPSH
+     procedure_id : 1777075094189062933
+     type_code : 12
+     code : |1-
+      // Summary: Returns the PPSH
+      // Syntax:
+      //[ <Result> = ] getTCPPSH ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	unsigned 1-byte integer: // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure getTCPPSH()
+      
+      RESULT :_TCPPSH
+     type : 458752
+   -
+     name : getTCPRST
+     procedure_id : 1777075128548874150
+     type_code : 12
+     code : |1-
+      // Summary: Returns the TCPRST
+      // Syntax:
+      //[ <Result> = ] getTCPRST ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	unsigned 1-byte integer: // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure getTCPRST()
+      
+      RESULT :_TCPRST
+     type : 458752
+   -
+     name : getTCPSYN
+     procedure_id : 1777075154318750212
+     type_code : 12
+     code : |1-
+      // Summary: Returns the SYN
+      // Syntax:
+      //[ <Result> = ] getTCPSYN ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	unsigned 1-byte integer: // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure getTCPSYN()
+      
+      RESULT :_TCPSYN
+     type : 458752
+   -
+     name : getTCPFIN
+     procedure_id : 1777075184383593211
+     type_code : 12
+     code : |1-
+      // Summary: Returns the END
+      // Syntax:
+      //[ <Result> = ] getTCPEND ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	unsigned 1-byte integer: // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure getTCPFIN()
+      
+      RESULT :_TCPFINISH
+     type : 458752
+   -
+     name : getTCPWindow
+     procedure_id : 1777075231628310221
+     type_code : 12
+     code : |1-
+      // Summary: Returns the window
+      // Syntax:
+      //[ <Result> = ] getTCPWindow ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	unsigned int on 2 bytes: // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure getTCPWindow()
+      
+      RESULT :_TCPWindow
+     type : 458752
+   -
+     name : getTCPPointer
+     procedure_id : 1777075261693153595
+     type_code : 12
+     code : |1-
+      // Summary: Returns the pointer
+      // Syntax:
+      //[ <Result> = ] getTCPPointer ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	unsigned int on 2 bytes: // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure getTCPPointer()
+      
+      RESULT :_TCPPointer
+     type : 458752
+  procedure_templates : []
+  property_templates : []
+ code_parameters :
+  internal_properties : CAAAAAgAAACVGQgYbalU7DKC3oH4ItDrjtcTHXXV/EuH8q0IbhyQlw==
+  original_name : CClasse1
+resources :
+ string_res :
+  identifier : 0x18a5fa2800240c59
+  internal_properties : CAAAAAgAAACm76HWfKGWp33VjXInA4cRlqArlgTTA862QGt72W2ld5Y=
+custom_note :
+ internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ

@@ -1,0 +1,736 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : cPacket
+ major_version : 28
+ minor_version : 0
+ type : 4
+ description : ""
+ subtype : 0
+class :
+ identifier : 0x18a21a75000e22f5
+ internal_properties : CAAAAAgAAAB2/vstTMCJbS/hlxjFxirSqKvCUuv8YxgpWyl7S3iA
+ code_elements :
+  internal_properties : CAAAAAgAAACvL/Vx9GECpPMPrtvfbMGmPPaoZpYRMHJpQIDvEen3YabzMWD3/mfWunjwHkViXst20tnsxb9mRnH9hhGP88bMGdnoTSS+By3H
+  type_code : 10
+  p_codes :
+   -
+     internal_properties : CAAAAAgAAAAtk2cTvApW/rJRpbCoyPt3TKrPrauF33BvYU2dR/G2eEFS4NTlp7N3ornGOExEeue7eRQsSHMVOpRdQz9ncowHo2fR1jeQkGlNVTHuhlzBiUscyt2Fzs9Vnb420krJXWheDPgd0aAZjwlPX6RO4jcs3R9gFnTQsQAvgNyNHB4QZslX1I6C+TlBFq4tw0j+PkSxmzqrtesxlA0vjB6sFw==
+     code : |1+
+      
+      CONSTANT
+      	// Values of the protocols in the IP V4 header
+      	ICMP = 1
+      	TCP  = 6
+      	UDP  = 17	
+      	IGMP = 2
+      END
+      
+      // 
+      // Class representing a packet circulating on an Ethernet network in IPV4
+      // The detected protocols are ICMP, UDP and TCP
+      //
+      cPacket is Class		
+      // Members common to all the packets regardless if they are ICMP, TCP or UPD
+      PROTECTED
+      _sIPSource       is string
+      _sIPDest         is string
+      _sProtocol      is string 
+      _IPTo          is 1-byte unsigned int
+      _IPIHL           is 1-byte unsigned int
+      _IPPriority      is 1-byte unsigned int
+      _IPTimeout         is 1-byte unsigned int
+      _IPThroughput         is 1-byte unsigned int
+      _IPReliability     is 1-byte unsigned int
+      _IPCost          is 1-byte unsigned int	
+      _IPMBZ           is 1-byte unsigned int
+      _IPLength      is 2-byte unsigned int
+      _IPIdentifier   is 2-byte unsigned int
+      _IPReserve       is 1-byte unsigned int
+      _IPDontFragment	 is 1-byte unsigned int
+      _IPMoreFragment  is 1-byte unsigned int
+      _IPFragPosition  is 2-byte unsigned int
+      _IPTTL           is 1-byte unsigned int
+      _IPProtocol     is 1-byte unsigned int  // Protocol number (ICMP, UDP, TCP)
+      _IPChecksum      is 2-byte unsigned int
+      _nIPSource       is 4-byte unsigned int
+      _nIPDest         is 4-byte unsigned int
+      _AppProtocol    is string
+      _nPacket         is array fixed of cCapture::MAXIMUM_SIZE 1-byte unsigned int // The packet itself
+      _nData           is array of 1 1-byte unsigned int 							    // Packet data
+      _hHinst          is system int    													    // Load instance of the DLL
+      _nBytesReceived     is int
+      _rDuration          is real
+      
+      // Global member that does not depend on an instance
+      PROTECTED GLOBAL
+      _PortList       is ASSOCIATIVE ARRAY of strings
+      END
+     type : 131072
+  procedures :
+   -
+     name : Constructor
+     procedure_id : 1775010292951884533
+     type_code : 27
+     code : |1+
+      Procedure PROTECTED Constructor(rDuration is real)
+      
+      // Load the WinSock DLL
+      :_hHinst = LoadDLL(cCapture::DLL_NAME)
+      
+      // Assign the duration (number of seconds since the start of the capture)
+      :_rDuration = rDuration
+     type : 589824
+   -
+     name : Destructor
+     procedure_id : 1775010292951950069
+     type_code : 28
+     code : |1-
+      Procedure Destructor()
+      
+      // Unload the DLL
+      FreeDLL(:_hHinst)
+     type : 655360
+   -
+     name : getIPProtocol
+     internal_properties : CAAAAAgAAAAr9yUhSoFu+QzhSwJjz3wUJmkle8LJ4ZDZROK7Un//lLq3Mwv37vUyZB7FM+Vzki0XFg6Yj0x38SKaC1WvoGUU/KSCJzkyd85zSKsDVTuA12T1+sXcEtGKpbSUo5rqjjvdWMoZB1kLmNnyQi557mF8AeNGILNpREc95HDxbAS6V4qyQzz+ygSFF+of5wHu58piGSXQ
+     procedure_id : 1775273772016539280
+     type_code : 12
+     code : |1+
+      // Summary: Returns the UP protocol of the packet
+      // Syntax:
+      //[ <Result> = ] getIPProtocol ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	string:     // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure getIPProtocol()
+      
+      RESULT :_sProtocol
+      
+     type : 458752
+   -
+     name : processPacket
+     internal_properties : CAAAAAgAAABujv3qtvjPhNEniDYUWw+3x5E6thDPYbZL0T/hzu3bbM+qtZhaYL8BfGsq3EDa7zEN1AcHoViQN4kjSUJr1Ll0CfY6+3qE6oDzROv/Zd+RvinK6rELbMzLmMwcB4uwgYP8mYQlMIWcl8qGjuSkXMCC1h5kzOxBqc6GhDormaJ76jTqbmP+BZyZabUq3qn/K+gbapD++87py7BDv8KkOzcNNiEt
+     procedure_id : 1775274639600004235
+     type_code : 12
+     code : |1+
+      // Summary: Processes a packet to extract the information
+      // Syntax:
+      //processPacket (<nBuffer>, <nByteRead> is int)
+      //
+      // Parameters:
+      //	nBuffer: The packet
+      //	nByteRead (integer): Number of bytes read
+      // Return value:
+      // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure VIRTUAL processPacket(nBuffer, nByteRead is int)
+      
+      // Variables
+      nStringAddress is system int
+      
+      // Save the data, copy the table
+      FOR I = 1 _TO_ 65536
+      	:_nPacket[I] = nBuffer[I]
+      END
+      
+      // Position the number of bytes received
+      :_nBytesReceived = nByteRead
+      
+      // Fill the IP header
+      :processIPHeader()
+      
+      // Assign the IPs
+      // Transform the IPV4 that are integers on 4 bytes into "192.168.0.2" strings
+      // This thanks to the 'inet_ntoa' function of the WinSock API.
+      nStringAddress = API(cCapture::DLL_NAME,“inet_ntoa”,:_nIPSource)
+      :_sIPSource = StringRetrieve(nStringAddress, srASCIIZAddress)
+      nStringAddress = API(cCapture::DLL_NAME,“inet_ntoa”,:_nIPDest)
+      :_sIPDest = StringRetrieve(nStringAddress, srASCIIZAddress)
+      
+      // Protocol
+      SWITCH :_IPProtocol
+      	CASE ::IGMP :
+      		:_sProtocol = “IGMP”
+      	CASE ::ICMP  : 
+      		:_sProtocol = “ICMP”
+      	CASE ::TCP  : 
+      		:_sProtocol = “TCP”
+      	CASE ::UDP : 
+      		:_sProtocol = “UDP”
+      	OTHER CASE : 
+      		Error(<§$0000§>)
+      END
+     type : 458752
+   -
+     name : getIPSource
+     procedure_id : 1775275343974739086
+     type_code : 12
+     code : |1-
+      // Summary: Returns the source IP
+      // Syntax:
+      //[ <Result> = ] getIPSource ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	unsigned int on 4 bytes:    // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure getIPSource()
+      
+      RESULT :_sIPSource
+     type : 458752
+   -
+     name : getIPRecipient
+     procedure_id : 1775275365449646587
+     type_code : 12
+     code : |1-
+      // Summary: Returns the recipient IP
+      // Syntax:
+      //[ <Result> = ] getIPRecipient ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	unsigned int on 4 bytes:    // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure getIPRecipient()
+      
+      RESULT :_sIPDest
+     type : 458752
+   -
+     name : getData
+     internal_properties : CAAAAAgAAAAxidMvT7eQr5yppcIvz7RMOm0lYbjvN6IR1Ch7Rr9HxM7DJ+XpqPPY6IrHmxnXYm1LumrioT7xc54WNS3bbB28XIzOafPUUaATKFJahioxFjvE3Vg1+aibStUz+gthF3KU15EA7IxWZdqHNTEegbrL8OpF//AE5yiysZO88YdvqnWtSiPbJWdu/Ct6WvbZ0NBoJzvK
+     procedure_id : 1775275494298826461
+     type_code : 12
+     code : |1-
+      // Summary: Returns the content of the packet
+      // Syntax:
+      //[ <Result> = ] getData ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	table:  // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure  getData()
+      
+      RESULT :_nData
+     type : 458752
+   -
+     name : processIPHeader
+     internal_properties : CAAAAAgAAADEGT9gRqQXxqe+5GrrNoMJlVVvDWdCLRI7PbuJDi1nHMdmJayK4NOtJJ9GdBj6gwH9QFeD6WCcs2nf3dKTJO1cAVoyH0rE5sybqF9P9b9tbgnssIchCi7NoqZaXSn+4+maOzKTtjueyfygnNIKqmKgjACiajI/sxiQFkDpVzjt2ELEhDE8y6YDS7fAfJ/oAx+BOIgQmfsxQ6AenJt1rrouw4uH
+     procedure_id : 1775591453567054780
+     type_code : 12
+     code : |1+
+      // Summary: Processes the IP header
+      // Syntax:
+      //processIPHeader ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure PRIVATE processIPHeader()
+      
+      // Variable for the fragment position
+      nFlagPosition is 2-byte unsigned int
+      nFirstByte is 1-byte unsigned int
+      
+      // Initialization
+      nFirstByte = BinaryAND(:_nPacket[7],0x1F) // Eliminate the first 3 high-byte bits that are flags
+      nFlagPosition = nFirstByte * 256 + :_nPacket[8]
+      
+      // Fill the header using the packet
+      :_IPTo = BinaryAND(:_nPacket[1] ,0xF0) / 16
+      :_IPIHL = BinaryAND(:_nPacket[1], 0x0F)
+      :_IPPriority = BinaryAND(:_nPacket[2], 0xE0) / 32
+      :_IPTimeout = BinaryAND(:_nPacket[2], 0x10) / 16
+      :_IPThroughput = BinaryAND(:_nPacket[2], 0x08) / 8
+      :_IPReliability = BinaryAND(:_nPacket[2], 0x04) / 4
+      :_IPCost = BinaryAND(:_nPacket[2], 0x02) / 2
+      :_IPLength = (:_nPacket[3] * 256) + :_nPacket[4]
+      :_IPIdentifier = (:_nPacket[5] * 256) + :_nPacket[6]
+      :_IPReserve = BinaryAND(:_nPacket[7], 0x80) / 128
+      :_IPDontFragment = BinaryAND(:_nPacket[7], 0x40) / 64
+      :_IPMoreFragment = BinaryAND(:_nPacket[7], 0x20) / 32
+      :_IPFragPosition = nFlagPosition
+      :_IPTTL = :_nPacket[9]             
+      :_IPProtocol = :_nPacket[10]
+      :_IPChecksum = (:_nPacket[11] * 256) + :_nPacket[12]
+      Transfer(&:_nIPSource,&:_nPacket[13],4)
+      Transfer(&:_nIPDest,&:_nPacket[17],4)
+     type : 458752
+   -
+     name : getIPChecksum
+     internal_properties : CAAAAAgAAADHG8E9vD1O1bDtLy6jy0xsKm1l/5796QzNWHa3auMftJ4Lox8Dyi3WwIJ5n8UX6h1bWh4Mo5jndV4eV9FftCUkwPiCM50uB5Lv7MUtU3VqHaLbrFcKLOukQ6aeXfBMoMnzruyzfbN1QjeUZNDfiENSzzFA4jHrtnGr1mL72u50rfgAXT7EDE4Xhfwpke8QOb52Ncm8
+     procedure_id : 1776765813591403040
+     type_code : 12
+     code : |1-
+      // Summary: Returns the checksum
+      // Syntax:
+      //[ <Result> = ] getIPChecksum ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	unsigned int on 2 bytes: // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure getIPChecksum()
+      
+      RESULT :_IPChecksum
+     type : 458752
+   -
+     name : getIPIHL
+     procedure_id : 1776765895195866388
+     type_code : 12
+     code : |1-
+      // Summary: Returns the IHL IP
+      // Syntax:
+      //[ <Result> = ] getIPIHL ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	unsigned 1-byte integer: // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure getIPIHL()
+      
+      RESULT :_IPIHL
+     type : 458752
+   -
+     name : getIPIdentifier
+     procedure_id : 1776765925260710652
+     type_code : 12
+     code : |1-
+      // Summary: Returns the identifier
+      // Syntax:
+      //[ <Result> = ] getIPIdentifier ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	unsigned int on 2 bytes: // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure getIPIdentifier()
+      
+      RESULT :_IPIdentifier
+     type : 458752
+   -
+     name : getIPVersion
+     procedure_id : 1776766101354410554
+     type_code : 12
+     code : |1-
+      // Summary: <specify the action of the procedure>
+      // Syntax:
+      //[ <Result> = ] getIPVersion ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	unsigned 1-byte integer: // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure getIPVersion()
+      
+      RESULT :_IPTo
+     type : 458752
+   -
+     name : getIPPriority
+     procedure_id : 1776766144304158815
+     type_code : 12
+     code : |1-
+      // Summary: Returns the priority
+      // Syntax:
+      //[ <Result> = ] getIPPriority ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	unsigned 1-byte integer: // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure getIPPriority()
+      
+      RESULT :_IPPriority
+     type : 458752
+   -
+     name : getIPTimeout
+     procedure_id : 1776766578095628766
+     type_code : 12
+     code : |1-
+      // Summary: Returns the time-out
+      // Syntax:
+      //[ <Result> = ] getIPTimeout ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	unsigned 1-byte integer: // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure getIPTimeout()
+      
+      RESULT :_IPTimeout
+     type : 458752
+   -
+     name : getIPThroughput
+     procedure_id : 1776766599570536594
+     type_code : 12
+     code : |1+
+      // Summary: Returns the throughput
+      // Syntax:
+      //[ <Result> = ] getIPFlow ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	unsigned 1-byte integer: // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure getIPThroughput()
+      
+      RESULT :_IPThroughput
+     type : 458752
+   -
+     name : getIPReliability
+     procedure_id : 1776766646815252917
+     type_code : 12
+     code : |1-
+      // Summary: Returns the reliability
+      // Syntax:
+      //[ <Result> = ] getIPReliability ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	unsigned 1-byte integer: // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure getIPReliability()
+      
+      RESULT :_IPReliability
+     type : 458752
+   -
+     name : getIPCost
+     procedure_id : 1776766689765001726
+     type_code : 12
+     code : |1-
+      // Summary: Returns the cost
+      // Syntax:
+      //[ <Result> = ] getIPCost ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	unsigned 1-byte integer: // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure getIPCost()
+      
+      RESULT :_IPCost
+     type : 458752
+   -
+     name : getIPLength
+     procedure_id : 1776766810024441163
+     type_code : 12
+     code : |1-
+      // Summary: Returns the length
+      // Syntax:
+      //[ <Result> = ] getIPLength ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	unsigned int on 2 bytes: // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure getIPLength()
+      
+      RESULT :_IPLength
+     type : 458752
+   -
+     name : getIPFlag
+     internal_properties : CAAAAAgAAADHG8E9vB2OlbCt7+6jSwwsaq1l/949aQyNWHY3qiMfNB6L41+DSu0WQMI5X0WXql0bGh6M41hn9R6e11EfdKWkQPjCc50ux1JvrGVN85VKfQJ7DDdqDMtE40a+fZDsgCnTTswT3RPV4te0BHB/KCOyr1EgwhHLlhHLdoKb+o7UDVigvZ6k7C63pZxJsQ+wOb52Ncm8
+     procedure_id : 1776766857269092200
+     type_code : 12
+     code : |1-
+      // Summary: Returns the flags
+      // Syntax:
+      //[ <Result> = ] getIPFlag ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	unsigned int on 2 bytes: // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure getIPFlag()
+      
+      RESULT :_IPFragPosition
+     type : 458752
+   -
+     name : getIPTTL
+     procedure_id : 1776766908808778053
+     type_code : 12
+     code : |1+
+      // Summary: Returns the TTL
+      // Syntax:
+      //[ <Result> = ] getIPTTL ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	unsigned 1-byte integer: // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure getIPTTL()
+      
+      RESULT :_IPTTL
+     type : 458752
+   -
+     name : getIPDontFragment
+     internal_properties : CAAAAAgAAAAxidMvT1dQ7xzpZYKvz3QMei2l4Xgvt6JRVCj7Bn/HRM7DZyXpqLOY6MoHWxnXIq2L+mpi4f7xc14Wta0brB28XAwOKXNUEWCTaLI65orRtlskfXjVmUh7qrWTWutBt5K0t7EgDKx2RbrnFRH+YVprEMrlnxAkB4gSEXOc0eePSpWN6kP7xQdOXAtautY50NBoJzvK
+     procedure_id : 1776767900946323014
+     type_code : 12
+     code : |1-
+      // Summary: Returns the value of the Don't Fragment flag
+      // Syntax:
+      //[ <Result> = ] getIPDontFragment ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	unsigned 1-byte integer: // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure getIPDontFragment()
+      
+      RESULT :_IPDontFragment
+     type : 458752
+   -
+     name : getIPMBZ
+     procedure_id : 1776768257428626046
+     type_code : 12
+     code : |1-
+      // Summary: Returns the MBZ
+      // Syntax:
+      //[ <Result> = ] getIPMBZ ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	unsigned 1-byte integer: // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure getIPMBZ()
+      
+      RESULT :_IPMBZ
+     type : 458752
+   -
+     name : getIPMoreFragment
+     internal_properties : CAAAAAgAAAAxidMvT1dQ7xzpZYKvz3QMei2l4Xgvt6JRVCj7Bn/HRM7DZyXpqLOY6MoHWxnXIq2L+mpi4f7xc14Wta0brB28XAwOKXNUEWCTaLI65orRtlskfXjVmUh7qrWTWutBt5K0t7EgDKx2RbrnFRH+YVprEMrlnxAkB4gSEXOc0eePSpWN6kP7xQdOXAtautY50NBoJzvK
+     procedure_id : 1776768394867677038
+     type_code : 12
+     code : |1-
+      // Summary: Returns the value of the MoreFragment flag
+      // Syntax:
+      //[ <Result> = ] getIPMoreFragment ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	unsigned 1-byte integer: // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure getIPMoreFragment()
+      
+      RESULT :_IPMoreFragment
+     type : 458752
+   -
+     name : getIPFragPosition
+     procedure_id : 1776768528011693839
+     type_code : 12
+     code : |1-
+      // Summary: Returns the value of the fragmentation
+      // Syntax:
+      //[ <Result> = ] getIPPositionFrag ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	unsigned int on 2 bytes:    // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure getIPFragPosition()
+      
+      RESULT :_IPFragPosition
+     type : 458752
+   -
+     name : getIPReserve
+     internal_properties : CAAAAAgAAADHG8E9vD1O1bDtLy6jy0xsKm1l/5796QzNWHa3auMftJ4Lox8Dyi3WwIJ5n8UX6h1bWh4Mo5jndV4eV9FftCUkwPiCM50uB5Lv7MUtU3VqHaLbrFcKLOukQ6aeXfBMoMnzruyzfbN1QjeUZNDfiENSzzFA4jHrtnGr1mL72u50rfgAXT7EDE4Xhfwpke8QOb52Ncm8
+     procedure_id : 1776768549486601402
+     type_code : 12
+     code : |1-
+      // Summary: Returns the Reserved flag
+      // Syntax:
+      //[ <Result> = ] getIPReserve ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	unsigned 1-byte integer: // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure getIPReserve()
+      
+      RESULT :_IPReserve
+     type : 458752
+   -
+     name : getPacket
+     internal_properties : CAAAAAgAAADHG8E9vD1O1bDtLy6jy0xsKm1l/5796QzNWHa3auMftJ4Lox8Dyi3WwIJ5n8UX6h1bWh4Mo5jndV4eV9FftCUkwPiCM50uB5Lv7MUtU3VqHaLbrFcKLOukQ6aeXfBMoMnzruyzfbN1QjeUZNDfiENSzzFA4jHrtnGr1mL72u50rfgAXT7EDE4Xhfwpke8QOb52Ncm8
+     procedure_id : 1777063068282352729
+     type_code : 12
+     code : |1-
+      // Summary: Returns the packet
+      // Syntax:
+      //[ <Result> = ] getPacket ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	table:     // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure getPacket()
+      
+      RESULT :_nPacket
+     type : 458752
+   -
+     name : getTimeStamp
+     internal_properties : CAAAAAgAAADHG8E9vD1O1bDtLy6jy0xsKm1l/5796QzNWHa3auMftJ4Lox8Dyi3WwIJ5n8UX6h1bWh4Mo5jndV4eV9FftCUkwPiCM50uB5Lv7MUtU3VqHaLbrFcKLOukQ6aeXfBMoMnzruyzfbN1QjeUZNDfiENSzzFA4jHrtnGr1mL72u50rfgAXT7EDE4Xhfwpke8QOb52Ncm8
+     procedure_id : 1779704361503544742
+     type_code : 12
+     code : |1-
+      // Summary: Returns the timestamp
+      // Syntax:
+      //[ <Result> = ] getTimeStamp ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	real:   // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure getTimeStamp()
+      
+      RESULT :_rDuration
+     type : 458752
+   -
+     name : fillPort
+     internal_properties : CAAAAAgAAAACJNLoqj5JmNYPZOQUxO6TpEgVfO/VoSShRF6762UAVPDhXQZ2tbPfF+n7jLHOnNZlDPx5f5ixQ4Jsm/ZZPHymy4mFJZDJzH2Vimhs/u1N4zXn3v599HC85zj9GlHY1fMgIlrAJP3oZAFo3R0AGt46krX6jXKDGwEf+GUieaaTE+u6uWG9cN13qfrWxlCxzNQ3e7qTow==
+     procedure_id : 1779718874221471239
+     type_code : 12
+     code : |1-
+      // Summary: List of supported ports
+      // Syntax:
+      //fillPort ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure PROTECTED fillPort()
+      
+      ::_PortList[20] = “FTP”
+      ::_PortList[21] = “FTP”
+      ::_PortList[22] = “SSH”
+      ::_PortList[23] = “Telnet”
+      ::_PortList[25] = “SMTP”
+      ::_PortList[53] = “DNS”
+      ::_PortList[80] = “HTTP”
+      ::_PortList[109] = “POP2”
+      ::_PortList[110] = “POP3”
+      ::_PortList[137] = “NBNS”
+      ::_PortList[138] = “BROWSER”
+      ::_PortList[139] = “NBSS”
+      ::_PortList[161] = “SNMP”
+     type : 458752
+   -
+     name : getAppProtocol
+     internal_properties : CAAAAAgAAABTr03kXzE+ycyBizLzf8xklkmVu0KpQfAJNPJbkn+flLrHc9vnnoVCpF6loxXDYp1nVv44z6wXUTKK2zWPQKW0XJTilwlCp/5TaAPLHUMobxwdop30ijkyjbws60ISdjNVYNIR35FToOG6GnZBdklUeQuueIsh7C8FTMhZdEwCL+JaizQW4gyNf7LXD2mWr1+KwV0o
+     procedure_id : 1779721773324481293
+     type_code : 12
+     code : |1-
+      // Summary: Returns the protocol for applying the packet
+      // Syntax:
+      //[ <Result> = ] getAppProtocol ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	string: //  	 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure getAppProtocol()
+      
+      RESULT :_AppProtocol
+     type : 458752
+  procedure_templates : []
+  property_templates : []
+ code_parameters :
+  internal_properties : CAAAAAgAAACVGQgYbalU7DKC3oH4ItDrjtcTHXXV/EuH8q0IbhyQlw==
+  original_name : CClasse1
+resources :
+ string_res :
+  identifier : 0x18a21a72000b1672
+  internal_properties : CAAAAAgAAACm76HWfKGWp33VjXInA4cRlqArlgTTA862QGt72W2ld5Y=
+  strings :
+   -
+     text :
+      en-GB : processPacket - Unknown IP protocol
+     index : 0
+custom_note :
+ internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ

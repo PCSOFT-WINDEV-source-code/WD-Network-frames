@@ -1,0 +1,194 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : cPacketUDP
+ major_version : 28
+ minor_version : 0
+ type : 4
+ description : ""
+ subtype : 0
+class :
+ identifier : 0x18a5fa3b002e548e
+ internal_properties : CAAAAAgAAAB2/vstTMCJbS/hlxjFxirSqKvCUuv8YxgpWyl7S3iA
+ code_elements :
+  internal_properties : CAAAAAgAAACnPmzDcgE9ojOS4Txa9UC+6ysJ5iBKu1oV2wZViZa/4gceGTvOLwzWeMX2tmvfg6gmGRy4gYovwrt3vFVkS1uKZ/0nJVrZwlyqCVKQ7ai89kSQksr9InvIAGTQTdPpU5jTAyN+z+TNWdtgLFivLxGOqg31lLRqHcbPQL2X5KTzl84OSGlh4W3y8wJSNF0BSIs=
+  type_code : 10
+  p_codes :
+   -
+     internal_properties : CAAAAAgAAAC9WUULI6GOvxE2c/kaApRHNH5AhlGWXXXJxrTOWlUzWdzhQSnw/zUzas2Sp9k4pSyHUzVb0GGG47itzfJzI/PUc8+3e5JhfwnvIOhJs43Em3k2Q0FDUbdCg4w180nltG63W8QOYAHxpOBjIrkcAWsjHk1LzW/O/3u627Xo8R4yMQ==
+     code : |1+
+      
+      // 
+      // Class representing a UDP packet circulating on an Ethernet network ien IPV4
+      //
+      cPacketUDP is Class
+      	inhérits of cPacket
+      	
+      // Members relative to a UDP packet
+      PRIVATE
+      	_UDPSourcePort      is 2-byte unsigned int
+      	_UDPDestinationPort is 2-byte unsigned int
+      	_UDPLength        is 2-byte unsigned int 
+      	_UDPChecksum        is 2-byte unsigned int
+      END
+      
+     type : 131072
+  procedures :
+   -
+     name : Constructor
+     procedure_id : 1776100759380645006
+     type_code : 27
+     code : |1-
+      Procedure Constructor(rDuration is real)
+      
+      Constructor cPacket(rDuration)
+     type : 589824
+   -
+     name : Destructor
+     procedure_id : 1776100759380710542
+     type_code : 28
+     code : |1+
+      Procedure Destructor()
+     type : 655360
+   -
+     name : processPacket
+     internal_properties : CAAAAAgAAADbodmSJ7kUHOVzv1cR5Dl4AZB0BM8kbEQXSmEJyPHqiNJCWHbFpVCA9pxGQ12RoYEi9wpVlaST56SUwRVx59VqNczmSE4wZXzgq4h0UyTB3euKI8hmvWtJ+BrgMcXU5WECs/65LLHIQ27SeORclAjQXFhqdKSLvzQc4J6DaZILDmxw0EueOcsWmyFkWb3sJ3VhRMigQbGj1SpIUuqAZ6CBWsiCIyquFF9LQAhVChb6WYekSA==
+     procedure_id : 1776111174681580619
+     type_code : 12
+     code : |1-
+      // Summary: Processes the content of the UDP packet
+      // Syntax:
+      //processPacket (<nBuffer>, <nByteRead> is int)
+      //
+      // Parameters:
+      //	nBuffer: Data of the packet
+      //	nByteRead (integer): Number of bytes read
+      // Return value:
+      // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure VIRTUAL processPacket(nBuffer, nByteRead is int)
+      
+      // Call the method of the parent class to fill the IP header
+      Ancestor:processPacket(nBuffer,nByteRead)
+      
+      // Variable
+      nSizeIPHeader is int
+      
+      // Initialization to find out where the UDP packet starts
+      nSizeIPHeader = :_IPIHL * 4 // IHL * 32 bits
+      
+      // Fill the header knowing that the first bytes of the packet are the IP header
+      :_UDPSourcePort = (:_nPacket[nSizeIPHeader+1] * 256) + :_nPacket[nSizeIPHeader+2]
+      :_UDPDestinationPort = (:_nPacket[nSizeIPHeader+3] * 256) + :_nPacket[nSizeIPHeader+4]
+      :_UDPLength = (:_nPacket[nSizeIPHeader+5] * 256) + :_nPacket[nSizeIPHeader+6]
+      :_UDPChecksum = (:_nPacket[nSizeIPHeader+7] * 256) + :_nPacket[nSizeIPHeader+8]
+      
+      // Fill the data
+      Dimension(:_nData,:_nBytesReceived - nSizeIPHeader - 8) // Remove the size of the IP and UDP header (8 bytes)
+      FOR I = 1 _TO_ Dimension(:_nData)
+      	:_nData[I] = :_nPacket[nSizeIPHeader + 8 + I]
+      END
+      
+      // If the list of ports is empty, fill it
+      IF Dimension(::_PortList) = 0 THEN
+      	:fillPort()
+      END
+      
+      // Definition of the application protocol
+      :_AppProtocol = ::_PortList[:_UDPDestinationPort]
+      IF :_AppProtocol = “” THEN :_AppProtocol = ::_PortList[:_UDPSourcePort]
+     type : 458752
+   -
+     name : getUDPSourcePort
+     procedure_id : 1776116083829949981
+     type_code : 12
+     code : |1-
+      // Summary: Returns the source port
+      // Syntax:
+      //[ <Result> = ] getUDPSourcePort ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	unsigned int on 2 bytes:  // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure getUDPSourcePort()
+      
+      RESULT :_UDPSourcePort
+     type : 458752
+   -
+     name : getUDPRecipientPort
+     procedure_id : 1776116139664603193
+     type_code : 12
+     code : |1-
+      // Summary: Returns the recipient port
+      // Syntax:
+      //[ <Result> = ] getUDPDestinationPort ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	unsigned int on 2 bytes:  // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure getUDPRecipientPort()
+      
+      RESULT :_UDPDestinationPort
+     type : 458752
+   -
+     name : getUDPLength
+     procedure_id : 1777076043377252629
+     type_code : 12
+     code : |1+
+      // Summary: Returns the length
+      // Syntax:
+      //[ <Result> = ] getUDPLength ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	unsigned int on 2 bytes: // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure getUDPLength()
+      
+      RESULT :_UDPLength
+     type : 458752
+   -
+     name : getUDPChecksum
+     internal_properties : CAAAAAgAAADHG8E9vD1O1bDtLy6jy0xsKm1l/5796QzNWHa3auMftJ4Lox8Dyi3WwIJ5n8UX6h1bWh4Mo5jndV4eV9FftCUkwPiCM50uB5Lv7MUtU3VqHaLbrFcKLOukQ6aeXfBMoMnzruyzfbN1QjeUZNDfiENSzzFA4jHrtnGr1mL72u50rfgAXT7EDE4Xhfwpke8QOb52Ncm8
+     procedure_id : 1777076094916938139
+     type_code : 12
+     code : |1-
+      // Summary: Returns the checksum
+      // Syntax:
+      //[ <Result> = ] getUDPChecksum ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	unsigned int on 2 bytes: // 	None
+      //// Example:
+      // Indicate an example.
+      //
+      Procedure getUDPChecksum()
+      
+      RESULT :_UDPChecksum
+     type : 458752
+  procedure_templates : []
+  property_templates : []
+ code_parameters :
+  internal_properties : CAAAAAgAAACVGQgYbalU7DKC3oH4ItDrjtcTHXXV/EuH8q0IbhyQlw==
+  original_name : CClasse1
+resources :
+ string_res :
+  identifier : 0x18a5fa37002b4413
+  internal_properties : CAAAAAgAAACm76HWfKGWp33VjXInA4cRlqArlgTTA862QGt72W2ld5Y=
+custom_note :
+ internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ
